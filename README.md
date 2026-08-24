@@ -11,11 +11,15 @@ The long-term goal is to create a trusted campus event network where students ca
 College students often discover events through scattered sources such as Instagram, WhatsApp groups, Telegram channels, college websites, and individual event pages.
 
 CampusPulse aims to make event discovery simpler by bringing these opportunities together into one platform while building a system for verified college organizations and organizers.
+
+
 ##🎯 Current Goal
 
 Build a working foundation for CampusPulse and gradually evolve it into a full-fledged platform.
 
 I'm developing the project incrementally alongside my software engineering learning, with each stage introducing new concepts and improving the existing system.
+
+
 ## Current Features
 
 The current prototype is a Python-based event management system that supports:
