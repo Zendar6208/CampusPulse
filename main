@@ -1,0 +1,118 @@
+import json
+
+
+def load_events():
+    with open("events.json", "r", encoding="utf-8") as file:
+        events = json.load(file)
+
+    return events
+
+
+def save_events(events):
+    with open("events.json", "w", encoding="utf-8") as file:
+        json.dump(events, file, indent=4)
+
+
+def display_events(events):
+    print("Upcoming Hackathon Events:")
+
+    for event in events:
+        print(f"Name: {event['name']}")
+        print(f"Category: {event['category']}")
+        print(f"Date: {event['date']}")
+        print(f"Location: {event['location']}")
+        print(f"Capacity: {event['capacity']}")
+        print(f"Registered: {event['registered']}")
+        print("-" * 30)
+
+
+def search_event(events):
+    """Search for an event by name, display it, and return the matching event."""
+
+    if not isinstance(events, list):
+        raise TypeError("events must be a list")
+
+    search_name = input("Enter event name to search: ").strip()
+
+    if not search_name:
+        print("Event name cannot be empty.")
+        return None
+
+    for event in events:
+        if event.get("name", "").casefold() == search_name.casefold():
+            print("Event Found!")
+            print(event)
+            return event
+
+    print("Event not found.")
+    return None
+
+
+def add_event(events):
+    """Add a new event to the events list."""
+
+    if not isinstance(events, list):
+        raise TypeError("events must be a list")
+
+    name = input("Enter event name: ").strip()
+    category = input("Enter event category: ").strip()
+    date = input("Enter event date (DD-MM-YYYY): ").strip()
+    location = input("Enter event location: ").strip()
+    capacity = input("Enter event capacity: ").strip()
+
+    if not name or not category or not date or not location or not capacity:
+        print("All fields are required.")
+        return
+
+    try:
+        capacity = int(capacity)
+    except ValueError:
+        print("Capacity must be an integer.")
+        return
+
+    new_event = {
+        "name": name,
+        "category": category,
+        "date": date,
+        "location": location,
+        "capacity": capacity,
+        "registered": 0
+    }
+
+    events.append(new_event)
+
+    print(f"Event '{name}' added successfully!")
+
+
+def main():
+    events = load_events()
+
+    while True:
+        print("\nHackathon Event Management System")
+        print("1. Display Events")
+        print("2. Search Event")
+        print("3. Add Event")
+        print("4. Exit")
+
+        choice = input("Enter your choice (1-4): ").strip()
+
+        if choice == '1':
+            display_events(events)
+
+        elif choice == '2':
+            search_event(events)
+
+        elif choice == '3':
+            add_event(events)
+            save_events(events)
+
+        elif choice == '4':
+            print("Exiting the program.")
+            break
+
+        else:
+            print("Invalid choice. Please try again.")
+
+
+if __name__ == "__main__":
+    main()
