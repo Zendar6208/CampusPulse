@@ -13,7 +13,7 @@ College students often discover events through scattered sources such as Instagr
 CampusPulse aims to make event discovery simpler by bringing these opportunities together into one platform while building a system for verified college organizations and organizers.
 
 
-##🎯 Current Goal
+## Current Goal
 
 Build a working foundation for CampusPulse and gradually evolve it into a full-fledged platform.
 
