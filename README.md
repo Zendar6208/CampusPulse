@@ -33,6 +33,17 @@ The current prototype is a Python-based event management system that supports:
 * Command-line menu navigation
 * Basic input validation
 
+## Current Data
+
+Events currently contain:
+
+Event name
+Category
+Date
+Location
+Capacity
+Number of registered participants
+
 ## Current Technology
 
 The project currently uses:
