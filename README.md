@@ -137,7 +137,18 @@ The goal is to build a substantial, working software project rather than a colle
 
 ## 📊Development Status
 CampusPulse is currently in active early development.
+### Implemented
 
+- [x] JSON-based event storage
+- [x] Load events when the application starts
+- [x] Save newly added events to persistent storage
+- [x] Basic event management system
+- [x] Display events
+- [x] Search events
+- [x] Case-insensitive event search
+- [x] Add new events
+- [x] Input validation
+      
 ## 📝 Development Log
 # Day 1 — Initial Prototype
 Created the first Python-based CampusPulse event management system.
