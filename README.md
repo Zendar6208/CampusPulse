@@ -138,6 +138,19 @@ The goal is to build a substantial, working software project rather than a colle
 ## 📊Development Status
 CampusPulse is currently in active early development.
 
+## 📝 Development Log
+# Day 1 — Initial Prototype
+Created the first Python-based CampusPulse event management system.
+Implemented event display, search, and event creation.
+Added basic input validation.
+Added case-insensitive event searching.
+# Day 2 — Persistent Event Storage
+Introduced JSON-based data storage.
+Added load_events() to load event data when the application starts.
+Added save_events() to persist changes to events.json.
+Connected event creation to persistent storage.
+Tested that newly added events remain available after restarting the application.
+
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
