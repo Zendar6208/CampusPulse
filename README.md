@@ -10,7 +10,7 @@ The long-term goal is to create a trusted campus event network where students ca
 
 College students often discover events through scattered sources such as Instagram, WhatsApp groups, Telegram channels, college websites, and individual event pages.
 
-CampusPulse aims to make event discovery simpler by bringing these opportunities together into one platform while building a system for verified college organizations and organizers.
+CampusPulse brings event opportunities together in one platform and builds a system for verified college organisations and organisers.
 
 
 ## Current Goal
