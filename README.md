@@ -2,7 +2,7 @@
 
 CampusPulse is an open-source platform designed to help college students discover hackathons, competitions, workshops, fests, conferences, and other college events in one place.
 
-The long-term goal is to create a trusted campus event network where students can discover opportunities and verified college clubs and organizers can publish and manage their events.
+The long-term goal is to create a trusted campus event network where students can discover opportunities and verified college clubs and organisers can publish and manage their events.
 
 > **Status:** Early development / Python prototype
 
