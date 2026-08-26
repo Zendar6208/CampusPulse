@@ -134,6 +134,10 @@ The project will evolve alongside the developer's technical knowledge, starting 
 
 The goal is to build a substantial, working software project rather than a collection of disconnected features.
 
+
+## 📊Development Status
+CampusPulse is currently in active early development.
+
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
