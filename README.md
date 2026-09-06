@@ -32,6 +32,10 @@ The current prototype is a Python-based event management system that supports:
 * Managing event capacity and registration counts
 * Command-line menu navigation
 * Basic input validation
+* Robust handling of missing events.json
+* Handling of corrupted/invalid JSON data
+* Event data type validation
+* Empty event-state handling
 
 ## Current Data
 
