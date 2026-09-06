@@ -158,6 +158,7 @@ CampusPulse is currently in active early development.
 - [x] Case-insensitive event search
 - [x] Add new events
 - [x] Input validation
+- [x] Robust error handling
       
 ## 📝 Development Log
 # Day 1 — Initial Prototype
@@ -171,6 +172,13 @@ Added load_events() to load event data when the application starts.
 Added save_events() to persist changes to events.json.
 Connected event creation to persistent storage.
 Tested that newly added events remain available after restarting the application.
+# Day 3 — Error Handling & Data Validation
+Added error handling for a missing events.json file using FileNotFoundError.
+Added error handling for corrupted or invalid JSON data using json.JSONDecodeError.
+Added validation to ensure event data is stored as a list.
+Added handling for empty event lists when displaying events.
+Practiced Python exception handling using specific exceptions instead of broad exception handling.
+Improved the reliability of the event data loading and display process.
 
 ## License
 
