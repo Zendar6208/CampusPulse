@@ -61,6 +61,12 @@ The project currently uses:
 * String manipulation
 * Input validation
 * Git & GitHub
+* JSON file persistence
+* Exception handling
+* try/except
+* FileNotFoundError
+* JSONDecodeError
+* TypeError
 
 As development progresses, the project will gradually evolve into a full-stack application.
 
