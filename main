@@ -2,8 +2,14 @@ import json
 
 
 def load_events():
-    with open("events.json", "r", encoding="utf-8") as file:
-        events = json.load(file)
+    try:
+        with open("events.json", "r", encoding="utf-8") as file:
+            events = json.load(file)
+    except FileNotFoundError:
+        events = []
+    except json.JSONDecodeError:
+        print("Error: events.json is not a valid JSON file.")
+        events = []
 
     return events
 
@@ -14,6 +20,12 @@ def save_events(events):
 
 
 def display_events(events):
+    if not isinstance(events, list):
+        raise TypeError("events must be a list")
+    if not events:
+        print("No events to display.")
+        return
+
     print("Upcoming Hackathon Events:")
 
     for event in events:
