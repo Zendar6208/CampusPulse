@@ -147,38 +147,63 @@ The goal is to build a substantial, working software project rather than a colle
 
 ## 📊Development Status
 CampusPulse is currently in active early development.
+## 📊 Development Status
+
+CampusPulse is currently in active early development.
+
 ### Implemented
 
-- [x] JSON-based event storage
-- [x] Load events when the application starts
-- [x] Save newly added events to persistent storage
-- [x] Basic event management system
-- [x] Display events
-- [x] Search events
-- [x] Case-insensitive event search
-- [x] Add new events
-- [x] Input validation
-- [x] Robust error handling
-      
+* [x] JSON-based event storage
+* [x] Load events when the application starts
+* [x] Save newly added events to persistent storage
+* [x] Basic event management system
+* [x] Display events
+* [x] Search events
+* [x] Case-insensitive event search
+* [x] Add new events
+* [x] Input validation
+* [x] Basic error handling for missing and corrupted event data
+* [x] Event data validation
+* [x] Introduced an `Event` class
+* [x] Learned and implemented object-oriented concepts
+* [x] Added instance attributes and methods to the `Event` class
+
 ## 📝 Development Log
-# Day 1 — Initial Prototype
-Created the first Python-based CampusPulse event management system.
-Implemented event display, search, and event creation.
-Added basic input validation.
-Added case-insensitive event searching.
-# Day 2 — Persistent Event Storage
-Introduced JSON-based data storage.
-Added load_events() to load event data when the application starts.
-Added save_events() to persist changes to events.json.
-Connected event creation to persistent storage.
-Tested that newly added events remain available after restarting the application.
-# Day 3 — Error Handling & Data Validation
-Added error handling for a missing events.json file using FileNotFoundError.
-Added error handling for corrupted or invalid JSON data using json.JSONDecodeError.
-Added validation to ensure event data is stored as a list.
-Added handling for empty event lists when displaying events.
-Practiced Python exception handling using specific exceptions instead of broad exception handling.
-Improved the reliability of the event data loading and display process.
+
+### Day 1 — Initial Prototype
+
+* Created the first Python-based CampusPulse event management system.
+* Implemented event display, search, and event creation.
+* Added basic input validation.
+* Added case-insensitive event searching.
+
+### Day 2 — Persistent Event Storage
+
+* Introduced JSON-based data storage.
+* Added `load_events()` to load event data when the application starts.
+* Added `save_events()` to persist changes to `events.json`.
+* Connected event creation to persistent storage.
+* Tested that newly added events remain available after restarting the application.
+
+### Day 3 — Error Handling & Data Validation
+
+* Added error handling for a missing `events.json` file using `FileNotFoundError`.
+* Added error handling for corrupted or invalid JSON data using `json.JSONDecodeError`.
+* Added validation to ensure event data is stored as a list.
+* Added handling for empty event lists when displaying events.
+* Practiced Python exception handling using specific exceptions instead of broad exception handling.
+* Improved the reliability of the event data loading and display process.
+
+### Day 4 — Introduction to Object-Oriented Programming
+
+* Introduced the `Event` class to represent individual campus events.
+* Learned the difference between classes and objects.
+* Learned how `self` refers to the current object instance.
+* Used `__init__()` to initialize event attributes.
+* Added instance attributes for event name, category, date, location, capacity, and registration count.
+* Added an instance method to display event information.
+* Began transitioning the project from dictionary-based event representation toward an object-oriented data model.
+
 
 ## License
 
