@@ -1,5 +1,20 @@
 import json
-
+class Event:
+    def __init__(self, name, category, date, location, capacity, registered):
+        self.name = name
+        self.category = category
+        self.date = date
+        self.location = location
+        self.capacity = capacity
+        self.registered = registered
+    def display(self):
+        print(f"Name: {self.name}")
+        print(f"Category: {self.category}")
+        print(f"Date: {self.date}")
+        print(f"Location: {self.location}")
+        print(f"Capacity: {self.capacity}")
+        print(f"Registered: {self.registered}")
+        
 
 def load_events():
     try:
