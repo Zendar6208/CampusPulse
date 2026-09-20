@@ -1,31 +1,6 @@
 import json
 
-class Event:
-    def __init__(self, name, category, date, location, capacity, registered):
-        self.name = name
-        self.category = category
-        self.date = date
-        self.location = location
-        self.capacity = capacity
-        self.registered = registered
-    def display(self):
-        print(f"Name: {self.name}")
-        print(f"Category: {self.category}")
-        print(f"Date: {self.date}")
-        print(f"Location: {self.location}")
-        print(f"Capacity: {self.capacity}")
-        print(f"Registered: {self.registered}")
-    def to_dict(self):
-        return {
-            "name": self.name,
-            "category": self.category,
-            "date": self.date,
-            "location": self.location,
-            "capacity": self.capacity,
-            "registered": self.registered
-        }
-    
-        
+
 def load_events():
     try:
         with open("events.json", "r", encoding="utf-8") as file:
