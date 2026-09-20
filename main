@@ -9,7 +9,7 @@ def load_events():
         events = []
         events.append(
             Event(
-        event["name"],
+                event["name"],
         event["category"],
         event["date"],
         event["location"],
