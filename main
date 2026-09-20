@@ -7,7 +7,16 @@ def load_events():
            data = json.load(file)
 
         events = []
-        
+        events.append(
+    Event(
+        event["name"],
+        event["category"],
+        event["date"],
+        event["location"],
+        event["capacity"],
+        event["registered"]
+    )
+)
 
        
     except FileNotFoundError:
