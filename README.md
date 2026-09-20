@@ -12,13 +12,11 @@ College students often discover events through scattered sources such as Instagr
 
 CampusPulse brings event opportunities together in one platform and builds a system for verified college organisations and organisers.
 
-
 ## Current Goal
 
 Build a working foundation for CampusPulse and gradually evolve it into a full-fledged platform.
 
 I'm developing the project incrementally alongside my software engineering learning, with each stage introducing new concepts and improving the existing system.
-
 
 ## Current Features
 
@@ -30,23 +28,28 @@ The current prototype is a Python-based event management system that supports:
 * Adding new events
 * Viewing event information
 * Managing event capacity and registration counts
+* Registering participants for events
+* Detecting when an event is full
 * Command-line menu navigation
 * Basic input validation
-* Robust handling of missing events.json
+* Robust handling of missing `events.json`
 * Handling of corrupted/invalid JSON data
 * Event data type validation
 * Empty event-state handling
+* Object-oriented event representation
+* Converting event objects to dictionaries for JSON storage
+* Reconstructing event objects from stored JSON data
 
 ## Current Data
 
 Events currently contain:
 
-Event name
-Category
-Date
-Location
-Capacity
-Number of registered participants
+* Event name
+* Category
+* Date
+* Location
+* Capacity
+* Number of registered participants
 
 ## Current Technology
 
@@ -55,6 +58,10 @@ The project currently uses:
 * Python
 * Lists
 * Dictionaries
+* Classes and objects
+* Instance attributes
+* Instance methods
+* Class methods
 * Functions
 * Loops
 * Conditional statements
@@ -62,11 +69,12 @@ The project currently uses:
 * Input validation
 * Git & GitHub
 * JSON file persistence
+* Object serialization and deserialization
 * Exception handling
-* try/except
-* FileNotFoundError
-* JSONDecodeError
-* TypeError
+* `try/except`
+* `FileNotFoundError`
+* `JSONDecodeError`
+* `TypeError`
 
 As development progresses, the project will gradually evolve into a full-stack application.
 
@@ -112,7 +120,7 @@ cd CampusPulse
 Run the program:
 
 ```bash
-python main.py
+python main
 ```
 
 ## Project Structure
@@ -120,7 +128,9 @@ python main.py
 ```text
 CampusPulse/
 │
+├── main
 ├── main.py
+├── events.json
 ├── README.md
 ├── LICENSE
 └── .gitignore
@@ -144,9 +154,6 @@ The project will evolve alongside the developer's technical knowledge, starting 
 
 The goal is to build a substantial, working software project rather than a collection of disconnected features.
 
-
-## 📊Development Status
-CampusPulse is currently in active early development.
 ## 📊 Development Status
 
 CampusPulse is currently in active early development.
@@ -167,6 +174,13 @@ CampusPulse is currently in active early development.
 * [x] Introduced an `Event` class
 * [x] Learned and implemented object-oriented concepts
 * [x] Added instance attributes and methods to the `Event` class
+* [x] Added `to_dict()` for event serialization
+* [x] Added `from_dict()` for event deserialization
+* [x] Converted loaded event dictionaries into `Event` objects
+* [x] Converted newly added events into `Event` objects
+* [x] Added event registration behavior
+* [x] Added event capacity checking with `is_full()`
+* [x] Persisted updated registration counts to JSON
 
 ## 📝 Development Log
 
@@ -204,6 +218,18 @@ CampusPulse is currently in active early development.
 * Added an instance method to display event information.
 * Began transitioning the project from dictionary-based event representation toward an object-oriented data model.
 
+### Day 5 — OOP Integration & Event Behavior
+
+* Converted JSON event dictionaries into `Event` objects when loading data.
+* Added `to_dict()` to convert `Event` objects back into dictionaries for JSON storage.
+* Added `from_dict()` as a class method for reconstructing `Event` objects from dictionaries.
+* Refactored `display_events()` to use the `Event.display()` method.
+* Refactored `search_event()` to work with object attributes and methods.
+* Updated `add_event()` to create `Event` objects instead of dictionaries.
+* Added the `register()` method to handle event registration.
+* Added the `is_full()` method to centralize event capacity checking.
+* Connected registration changes to persistent JSON storage.
+* Tested the complete object-to-JSON and JSON-to-object workflow.
 
 ## License
 
