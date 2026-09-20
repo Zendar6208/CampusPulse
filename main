@@ -126,7 +126,7 @@ def add_event(events):
         category,
         date,
         location,
-    capacity,
+        capacity,
     0
     )
 
