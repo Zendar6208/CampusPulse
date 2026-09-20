@@ -121,14 +121,14 @@ def add_event(events):
         print("Capacity must be an integer.")
         return
 
-    new_event = {
-        "name": name,
-        "category": category,
-        "date": date,
-        "location": location,
-        "capacity": capacity,
-        "registered": 0
-    }
+    new_event = Event(
+    name,
+    category,
+    date,
+    location,
+    capacity,
+    0
+)
 
     events.append(new_event)
 
