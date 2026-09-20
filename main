@@ -32,7 +32,7 @@ def save_events(events):
     for event in events:
         event_data.append(event.to_dict())
     with open("events.json", "w", encoding="utf-8") as file:
-        json.dump(events, file, indent=4)
+        json.dump(event_data, file, indent=4)
 
 
 def display_events(events):
