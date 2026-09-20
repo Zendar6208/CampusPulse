@@ -90,12 +90,7 @@ def search_event(events):
         print("Event name cannot be empty.")
         return None
 
-    for event in events:
-        if event.get("name", "").casefold() == search_name.casefold():
-            print("Event Found!")
-            print(event)
-            return event
-
+    
     print("Event not found.")
     return None
 
