@@ -26,6 +26,25 @@ class Event:
             "capacity": self.capacity,
             "registered": self.registered
         }
+
+    @classmethod
+    def from_dict(cls, data):
+        return cls(
+            data["name"],
+            data["category"],
+            data["date"],
+            data["location"],
+            data["capacity"],
+            data["registered"]
+        )
+    def register(self):
+        if not self.is_full():
+            self.registered += 1
+            return True
+        return False
+
+    def is_full(self):
+        return self.registered >= self.capacity
 def load_events():
     try:
         with open("events.json", "r", encoding="utf-8") as file:
@@ -33,19 +52,8 @@ def load_events():
 
         events = []
         for event in data:
-            events.append(
-                Event(
-                    event["name"],
-                    event["category"],
-                    event["date"],
-                    event["location"],
-                    event["capacity"],
-                    event["registered"]
-                )
-            )
-
-
-       
+            events.append(Event.from_dict(event))
+    
     except FileNotFoundError:
         events = []
     except json.JSONDecodeError:
@@ -143,7 +151,8 @@ def main():
         print("1. Display Events")
         print("2. Search Event")
         print("3. Add Event")
-        print("4. Exit")
+        print("4. Register for Event")
+        print("5. Exit")
 
         choice = input("Enter your choice (1-4): ").strip()
 
@@ -158,9 +167,18 @@ def main():
             save_events(events)
 
         elif choice == '4':
+            event = search_event(events)
+
+            if event:
+                if event.register():
+                    print("Registration successful!")
+                    save_events(events)
+                else:
+                    print("Registration failed. Event is full.")
+
+        elif choice == '5':
             print("Exiting the program.")
             break
-
         else:
             print("Invalid choice. Please try again.")
 

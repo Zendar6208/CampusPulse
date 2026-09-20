@@ -86,5 +86,13 @@
         "location": "AITAM Campus, Tekkali, Andhra Pradesh, India",
         "capacity": 500,
         "registered": 0
+    },
+    {
+        "name": "TestHack",
+        "category": "Hackathon",
+        "date": "25-09-2026",
+        "location": "Hyderabad",
+        "capacity": 100,
+        "registered": 1
     }
 ]
