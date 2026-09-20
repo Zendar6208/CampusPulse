@@ -27,6 +27,10 @@ def load_events():
 
 
 def save_events(events):
+    event_data = []
+
+    for event in events:
+        event_data.append(event.to_dict())
     with open("events.json", "w", encoding="utf-8") as file:
         json.dump(events, file, indent=4)
 
@@ -40,13 +44,8 @@ def display_events(events):
 
     print("Upcoming Hackathon Events:")
 
-    for event in events:
-        print(f"Name: {event.get('name', 'N/A')}")
-        print(f"Category: {event.get('category', 'N/A')}")
-        print(f"Date: {event.get('date', 'N/A')}")
-        print(f"Location: {event.get('location', 'N/A')}")
-        print(f"Capacity: {event.get('capacity', 'N/A')}")
-        print(f"Registered: {event.get('registered', 0)}")
+   for event in events:
+        event.display()
         print("-" * 30)
 
 
