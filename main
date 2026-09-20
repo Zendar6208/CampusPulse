@@ -10,7 +10,7 @@ def load_events():
         events.append(
             Event(
                 event["name"],
-            event["category"],
+                event["category"],
                 event["date"],
                 event["location"],
                 event["capacity"],
