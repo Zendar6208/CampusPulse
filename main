@@ -91,7 +91,7 @@ def search_event(events):
         return None
 
     for event in events:
-    if event.name.casefold() == search_name.casefold():
+        if event.name.casefold() == search_name.casefold():
         print("Event Found!")
         event.display()
         return event
