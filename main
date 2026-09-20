@@ -124,7 +124,7 @@ def add_event(events):
     new_event = Event(
         name,
         category,
-    date,
+        date,
     location,
     capacity,
     0
