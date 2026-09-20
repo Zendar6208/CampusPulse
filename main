@@ -46,7 +46,7 @@ def display_events(events):
 
    for event in events:
         event.display()
-    print("-" * 30)
+        print("-" * 30)
 
 
 def search_event(events):
