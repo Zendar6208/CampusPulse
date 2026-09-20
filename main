@@ -128,7 +128,7 @@ def add_event(events):
     location,
     capacity,
     0
-)
+    )
 
     events.append(new_event)
 
