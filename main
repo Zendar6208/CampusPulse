@@ -123,7 +123,7 @@ def add_event(events):
 
     new_event = Event(
         name,
-    category,
+        category,
     date,
     location,
     capacity,
