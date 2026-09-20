@@ -45,7 +45,7 @@ def display_events(events):
     print("Upcoming Hackathon Events:")
 
    for event in events:
-    event.display()
+        event.display()
     print("-" * 30)
 
 
