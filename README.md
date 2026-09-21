@@ -29,16 +29,19 @@ The current prototype is a Python-based event management system that supports:
 * Viewing event information
 * Managing event capacity and registration counts
 * Registering participants for events
+* Cancelling registrations
 * Detecting when an event is full
 * Command-line menu navigation
 * Basic input validation
-* Robust handling of missing `events.json`
-* Handling of corrupted/invalid JSON data
 * Event data type validation
-* Empty event-state handling
+* Event state validation
+* Handling missing `events.json`
+* Handling corrupted/invalid JSON data
+* Skipping invalid event records instead of crashing
 * Object-oriented event representation
 * Converting event objects to dictionaries for JSON storage
 * Reconstructing event objects from stored JSON data
+* Reusable event lookup through `find_event_by_name()`
 
 ## Current Data
 
@@ -72,9 +75,11 @@ The project currently uses:
 * Object serialization and deserialization
 * Exception handling
 * `try/except`
+* `raise`
 * `FileNotFoundError`
 * `JSONDecodeError`
 * `TypeError`
+* `ValueError`
 
 As development progresses, the project will gradually evolve into a full-stack application.
 
@@ -170,7 +175,9 @@ CampusPulse is currently in active early development.
 * [x] Add new events
 * [x] Input validation
 * [x] Basic error handling for missing and corrupted event data
-* [x] Event data validation
+* [x] Event data type validation
+* [x] Event state validation
+* [x] Skipping invalid stored event records
 * [x] Introduced an `Event` class
 * [x] Learned and implemented object-oriented concepts
 * [x] Added instance attributes and methods to the `Event` class
@@ -180,7 +187,10 @@ CampusPulse is currently in active early development.
 * [x] Converted newly added events into `Event` objects
 * [x] Added event registration behavior
 * [x] Added event capacity checking with `is_full()`
-* [x] Persisted updated registration counts to JSON
+* [x] Added registration cancellation
+* [x] Added reusable event lookup with `find_event_by_name()`
+* [x] Persisted registration changes to JSON
+* [x] Added graceful handling of invalid event records
 
 ## 📝 Development Log
 
@@ -214,7 +224,7 @@ CampusPulse is currently in active early development.
 * Learned the difference between classes and objects.
 * Learned how `self` refers to the current object instance.
 * Used `__init__()` to initialize event attributes.
-* Added instance attributes for event name, category, date, location, capacity, and registration count.
+* Added instance attributes for event name, category, location, capacity, and registration count.
 * Added an instance method to display event information.
 * Began transitioning the project from dictionary-based event representation toward an object-oriented data model.
 
@@ -229,7 +239,25 @@ CampusPulse is currently in active early development.
 * Added the `register()` method to handle event registration.
 * Added the `is_full()` method to centralize event capacity checking.
 * Connected registration changes to persistent JSON storage.
+* Added a reusable `find_event_by_name()` function.
 * Tested the complete object-to-JSON and JSON-to-object workflow.
+
+### Day 6 — Validation, State Management & Robustness
+
+* Added type validation to the `Event` constructor.
+* Added validation for empty event fields.
+* Added validation to ensure event capacity is greater than zero.
+* Added validation to ensure registered participants cannot exceed event capacity.
+* Used `TypeError` for invalid data types and `ValueError` for invalid values.
+* Added exception handling when creating events from user input.
+* Added graceful handling of invalid event records loaded from JSON.
+* Tested corrupted event states without crashing the application.
+* Added `cancel_registration()` to safely reduce registration counts.
+* Added a menu option for cancelling registrations.
+* Refactored registration to use the reusable `find_event_by_name()` function.
+* Improved separation between user-interface logic and event lookup logic.
+* Tested registration and cancellation persistence through `events.json`.
+* Cleaned up temporary test data after validation testing.
 
 ## License
 
