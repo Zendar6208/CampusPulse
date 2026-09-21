@@ -1,7 +1,44 @@
 import json
 
+from xml.dom.domreg import registered
+
 class Event:
     def __init__(self, name, category, date, location, capacity, registered):
+        if not isinstance(name, str):
+            raise TypeError("Event name must be a string.")
+
+        if not isinstance(category, str):
+            raise TypeError("Event category must be a string.")
+
+        if not isinstance(date, str):
+            raise TypeError("Event date must be a string.")
+        
+
+        if not isinstance(location, str):
+            raise TypeError("Event location must be a string.")
+
+        if not isinstance(capacity, int):
+            raise TypeError("Capacity must be an integer.")
+
+        if not isinstance(registered, int):
+            raise TypeError("Registered count must be an integer.")
+        if capacity <= 0:
+            raise ValueError("Capacity must be greater than 0.")
+
+        if registered < 0 or registered > capacity:
+            raise ValueError("Registered count must be between 0 and capacity.")
+        if not name.strip():
+            raise ValueError("Event name cannot be empty.")
+
+        if not category.strip():
+            raise ValueError("Event category cannot be empty.")
+
+        if not date.strip():
+            raise ValueError("Event date cannot be empty.")
+
+        if not location.strip():
+            raise ValueError("Event location cannot be empty.")
+
         self.name = name
         self.category = category
         self.date = date
@@ -42,6 +79,12 @@ class Event:
             self.registered += 1
             return True
         return False
+    def cancel_registration(self):
+        if self.registered > 0:
+            self.registered -= 1
+            return True
+
+        return False
 
     def is_full(self):
         return self.registered >= self.capacity
@@ -67,7 +110,11 @@ def save_events(events):
     event_data = []
 
     for event in events:
-        event_data.append(event.to_dict())
+        try:
+            event_data.append(event.to_dict())
+        except (AttributeError, TypeError, ValueError) as error:
+            print(f"Skipping invalid event: {error}")
+
     with open("events.json", "w", encoding="utf-8") as file:
         json.dump(event_data, file, indent=4)
 
@@ -144,14 +191,18 @@ def add_event(events):
         print("Capacity must be an integer.")
         return
 
-    new_event = Event(
-        name,
-        category,
-        date,
-        location,
-        capacity,
-        0
-    )
+    try:
+        new_event = Event(
+            name,
+            category,
+            date,
+            location,
+            capacity,
+            0
+        )
+    except ValueError as error:
+        print(f"Invalid event: {error}")
+        return
 
     events.append(new_event)
 
@@ -167,9 +218,10 @@ def main():
         print("2. Search Event")
         print("3. Add Event")
         print("4. Register for Event")
-        print("5. Exit")
+        print("5. Cancel Registration")
+        print("6. Exit")
 
-        choice = input("Enter your choice (1-5): ").strip()
+        choice = input("Enter your choice (1-6): ").strip()
 
         if choice == '1':
             display_events(events)
@@ -197,8 +249,23 @@ def main():
             else:
                 print("Event not found.")
 
-
         elif choice == '5':
+            search_name = input("Enter event name to cancel registration: ").strip()
+
+            event = find_event_by_name(events, search_name)
+
+            if event:
+                event.display()
+
+                if event.cancel_registration():
+                    print("Registration cancelled successfully!")
+                    save_events(events)
+                else:
+                    print("Cancellation failed. No registrations found.")
+            else:
+                print("Event not found.")
+
+        elif choice == '6':
             print("Exiting the program.")
             break
         else:
