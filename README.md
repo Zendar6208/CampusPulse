@@ -191,6 +191,9 @@ CampusPulse is currently in active early development.
 * [x] Added reusable event lookup with `find_event_by_name()`
 * [x] Persisted registration changes to JSON
 * [x] Added graceful handling of invalid event records
+* [x] Exception handling for missing event data
+* [x] Exception handling for invalid JSON data
+* [x] Tested failure cases for event loading
 
 ## 📝 Development Log
 
@@ -259,6 +262,13 @@ CampusPulse is currently in active early development.
 * Tested registration and cancellation persistence through `events.json`.
 * Cleaned up temporary test data after validation testing.
 
+### Day 7 — Exception Handling & Failure Testing
+
+- Strengthened event loading with specific exception handling.
+- Added graceful handling for missing `events.json`.
+- Added graceful handling for corrupted or invalid JSON data.
+- Added handling for invalid event data during loading.
+- Tested failure scenarios to verify that CampusPulse continues running instead of crashing.
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
