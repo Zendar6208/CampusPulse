@@ -92,15 +92,20 @@ def load_events():
     try:
         with open("events.json", "r", encoding="utf-8") as file:
            data = json.load(file)
+        
 
         events = []
         for event in data:
             events.append(Event.from_dict(event))
+        
     
     except FileNotFoundError:
         events = []
     except json.JSONDecodeError:
         print("Error: events.json is not a valid JSON file.")
+        events = []
+    except (TypeError, ValueError) as error:
+        print(f"Error loading events: {error}")
         events = []
 
     return events
