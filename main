@@ -1,26 +1,24 @@
 import json
 
-from xml.dom.domreg import registered
 
 class Event:
     def __init__(self, name, category, date, location, capacity, registered):
-        if not isinstance(name, str):
+        if type(name) is not str:
             raise TypeError("Event name must be a string.")
 
-        if not isinstance(category, str):
+        if type(category) is not str:
             raise TypeError("Event category must be a string.")
 
-        if not isinstance(date, str):
+        if type(date) is not str:
             raise TypeError("Event date must be a string.")
-        
 
-        if not isinstance(location, str):
+        if type(location) is not str:
             raise TypeError("Event location must be a string.")
 
-        if not isinstance(capacity, int):
+        if type(capacity) is not int:
             raise TypeError("Capacity must be an integer.")
 
-        if not isinstance(registered, int):
+        if type(registered) is not int:
             raise TypeError("Registered count must be an integer.")
         if capacity <= 0:
             raise ValueError("Capacity must be greater than 0.")
@@ -89,24 +87,27 @@ class Event:
     def is_full(self):
         return self.registered >= self.capacity
 def load_events():
+    events = []
+
     try:
         with open("events.json", "r", encoding="utf-8") as file:
-           data = json.load(file)
-        
-
-        events = []
-        for event in data:
-            events.append(Event.from_dict(event))
-        
-    
+            data = json.load(file)
     except FileNotFoundError:
-        events = []
+        return []
     except json.JSONDecodeError:
         print("Error: events.json is not a valid JSON file.")
-        events = []
-    except (TypeError, ValueError) as error:
-        print(f"Error loading events: {error}")
-        events = []
+        return []
+
+    if not isinstance(data, list):
+        print("Error: events.json does not contain a valid list of events.")
+        return []
+
+    for event in data:
+        try:
+            events.append(Event.from_dict(event))
+        except (TypeError, ValueError) as error:
+            print(f"Skipping invalid event: {error}")
+    
 
     return events
 
