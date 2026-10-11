@@ -1,132 +1,140 @@
 # CampusPulse
 
-CampusPulse is an open-source platform designed to help college students discover hackathons, competitions, workshops, fests, conferences, and other college events in one place.
+**Discover opportunities beyond your campus.**
 
-The long-term goal is to create a trusted campus event network where students can discover opportunities and verified college clubs and organisers can publish and manage their events.
+CampusPulse is an open-source project designed to help college students discover hackathons, competitions, workshops, fests, conferences, and other college events in one place.
 
-> **Status:** Early development / Python prototype
+The long-term vision is to build a trusted campus event network where students can discover opportunities across colleges, while verified student organizations and organizers can publish and manage their events.
+
+> **Current Status:** Active Development — Python CLI Prototype
+
+---
 
 ## Why CampusPulse?
 
-College students often discover events through scattered sources such as Instagram, WhatsApp groups, Telegram channels, college websites, and individual event pages.
+College events and opportunities are often scattered across Instagram, WhatsApp groups, Telegram channels, college websites, and individual registration platforms.
 
-CampusPulse brings event opportunities together in one platform and builds a system for verified college organisations and organisers.
+This makes discovering relevant opportunities unnecessarily difficult, especially for students interested in participating in events outside their own institutions.
+
+CampusPulse aims to solve this by building a centralized, accessible platform for campus opportunities.
 
 ## Current Goal
 
-Build a working foundation for CampusPulse and gradually evolve it into a full-fledged platform.
+The immediate objective is to build a functional, reliable, and maintainable foundation for CampusPulse.
 
-I'm developing the project incrementally alongside my software engineering learning, with each stage introducing new concepts and improving the existing system.
+Development is incremental, with each stage introducing new software engineering concepts while improving the existing application.
+
+The focus is on building working software rather than accumulating disconnected features.
 
 ## Current Features
 
-The current prototype is a Python-based event management system that supports:
+The current Python-based prototype supports:
 
-* Displaying upcoming events
-* Searching for events by name
-* Case-insensitive event search
-* Adding new events
-* Viewing event information
-* Managing event capacity and registration counts
-* Registering participants for events
-* Cancelling registrations
-* Detecting when an event is full
-* Command-line menu navigation
-* Basic input validation
-* Event data type validation
-* Event state validation
-* Handling missing `events.json`
-* Handling corrupted/invalid JSON data
-* Skipping invalid event records instead of crashing
-* Object-oriented event representation
-* Converting event objects to dictionaries for JSON storage
-* Reconstructing event objects from stored JSON data
-* Reusable event lookup through `find_event_by_name()`
+### Event Management
 
-## Current Data
+* Display available events.
+* Search events by name.
+* Case-insensitive event searching.
+* Add new events.
+* View event information.
+* Manage event capacity and registration counts.
 
-Events currently contain:
+### Registration Management
 
-* Event name
-* Category
-* Date
-* Location
-* Capacity
-* Number of registered participants
+* Register participants for events.
+* Cancel existing registrations.
+* Detect full events.
+* Prevent registrations beyond event capacity.
+* Prevent registration counts from becoming negative.
+* Persist registration changes.
 
-## Current Technology
+### Data Persistence
 
-The project currently uses:
+* Store events using JSON.
+* Automatically load events at startup.
+* Save event changes to persistent storage.
+* Convert event objects into dictionaries.
+* Reconstruct event objects from JSON data.
 
-* Python
-* Lists
-* Dictionaries
-* Classes and objects
-* Instance attributes
-* Instance methods
-* Class methods
-* Functions
-* Loops
-* Conditional statements
-* String manipulation
-* Input validation
-* Git & GitHub
-* JSON file persistence
-* Object serialization and deserialization
-* Exception handling
-* `try/except`
-* `raise`
-* `FileNotFoundError`
-* `JSONDecodeError`
-* `TypeError`
-* `ValueError`
+### Validation and Reliability
 
-As development progresses, the project will gradually evolve into a full-stack application.
+* Validate event data types and values.
+* Validate event capacity and registration counts.
+* Handle missing `events.json` files.
+* Handle malformed JSON data.
+* Validate the structure of loaded JSON.
+* Skip invalid individual event records.
+* Preserve valid records when other records are invalid.
+* Continue application execution after recoverable loading errors.
 
-## Project Vision
+## Event Data Model
 
-The planned direction for CampusPulse includes:
+Each event currently contains:
 
-* Student accounts
-* College email verification
-* College profiles
-* Verified student organizations
-* Organizer accounts
-* Event creation and management
-* Event registration
-* Event search and filtering
-* Cross-college event discovery
-* Personalized event recommendations
-* Open-source contributions from students and developers
+| Attribute  | Description                     |
+| ---------- | ------------------------------- |
+| Name       | Name of the event               |
+| Category   | Type of event                   |
+| Date       | Event date                      |
+| Location   | Event venue                     |
+| Capacity   | Maximum number of registrations |
+| Registered | Current registration count      |
 
-These features are part of the project's direction and are **not yet implemented**.
+Events are represented internally using an object-oriented `Event` class.
+
+## Technology
+
+The current prototype uses:
+
+* Python 3
+* JSON for persistent storage
+* Object-Oriented Programming
+* Python exception handling
+* Git and GitHub for version control
+
+No external Python dependencies are currently required.
 
 ## Getting Started
 
 ### Requirements
 
 * Python 3.x
-* Git
+* Git (for cloning the repository)
 
-### Run the current prototype
+### Installation
 
 Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/Zendar6208/CampusPulse.git
 ```
 
-Move into the project directory:
+Navigate into the project:
 
 ```bash
 cd CampusPulse
 ```
 
-Run the program:
+Run the application:
 
 ```bash
 python main
 ```
+
+### Available Menu
+
+```text
+Hackathon Event Management System
+
+1. Display Events
+2. Search Event
+3. Add Event
+4. Register for Event
+5. Cancel Registration
+6. Exit
+```
+
+The application uses `events.json` for persistent event storage.
 
 ## Project Structure
 
@@ -134,147 +142,168 @@ python main
 CampusPulse/
 │
 ├── main
-├── main.py
 ├── events.json
 ├── README.md
 ├── LICENSE
 └── .gitignore
 ```
 
-The project structure will evolve as CampusPulse grows.
+The structure will evolve as the project grows.
+
+## Development Status
+
+### Implemented
+
+* [x] Basic event management
+* [x] Event display and searching
+* [x] Case-insensitive event search
+* [x] Event creation
+* [x] JSON-based persistent storage
+* [x] Object-oriented event representation
+* [x] Event serialization and deserialization
+* [x] Input and state validation
+* [x] Event registration
+* [x] Registration cancellation
+* [x] Capacity validation
+* [x] Reusable event lookup
+* [x] Registration persistence
+* [x] Missing-file handling
+* [x] Malformed JSON handling
+* [x] Individual invalid-record handling
+* [x] Preservation of valid events during loading failures
+* [x] Manual edge-case and failure testing
+
+### Next Development Priorities
+
+* [ ] Automated unit testing
+* [ ] Improved project organization
+* [ ] Further separation of application logic and CLI interactions
+* [ ] Additional event-management capabilities
+* [ ] Improved documentation
+
+## Project Vision
+
+The planned full platform includes:
+
+* Student accounts.
+* College email verification.
+* College profiles.
+* Verified student organizations.
+* Organizer accounts.
+* Event creation and management.
+* Event registration.
+* Advanced event search and filtering.
+* Cross-college event discovery.
+* Personalized event recommendations.
+* Open-source community contributions.
+
+**These are planned capabilities and are not part of the current CLI prototype.**
+
+---
+
+# Development Log
+
+### Day 1 — Initial Prototype
+
+* Created the initial Python-based event management system.
+* Implemented event display, searching, and creation.
+* Added basic input validation.
+* Introduced case-insensitive searching.
+
+### Day 2 — Persistent Event Storage
+
+* Introduced JSON-based event storage.
+* Implemented `load_events()` and `save_events()`.
+* Connected event creation to persistent storage.
+* Verified that events remain available after restarting the application.
+
+### Day 3 — Error Handling & Data Validation
+
+* Added missing-file handling using `FileNotFoundError`.
+* Added malformed JSON handling using `json.JSONDecodeError`.
+* Validated the structure of stored event data.
+* Improved application reliability.
+
+### Day 4 — Introduction to OOP
+
+* Introduced the `Event` class.
+* Learned classes, objects, `self`, and `__init__()`.
+* Added instance attributes and methods.
+* Began transitioning from dictionary-based event representation to objects.
+
+### Day 5 — OOP Integration & Event Behavior
+
+* Integrated `Event` objects into the application.
+* Implemented `to_dict()` and `from_dict()`.
+* Refactored event display and searching.
+* Added registration functionality.
+* Introduced `is_full()` for capacity checking.
+* Implemented reusable event lookup through `find_event_by_name()`.
+* Connected registration changes to JSON persistence.
+
+### Day 6 — Validation, State Management & Robustness
+
+* Added event data type and value validation.
+* Prevented invalid capacity and registration counts.
+* Used specific exceptions for invalid data.
+* Implemented `cancel_registration()`.
+* Added registration cancellation to the CLI.
+* Improved separation between event behavior and user interaction.
+* Tested registration and cancellation persistence.
+
+### Day 7 — Exception Handling & Failure Testing
+
+* Strengthened exception handling during event loading.
+* Tested missing and malformed JSON files.
+* Improved handling of invalid stored event data.
+* Verified application behavior under failure conditions.
+
+### Day 8 — Reliable Event Loading & Edge-Case Testing
+
+**Objective:** Prevent one invalid event record from interrupting the entire event-loading process.
+
+* Reviewed registration and cancellation logic.
+* Verified capacity checking using `registered >= capacity`.
+* Tested registration boundary conditions.
+* Identified an issue where one invalid event could interrupt loading and discard valid records.
+* Refactored `load_events()` to handle individual event conversion errors inside the loading loop.
+* Added validation to ensure the JSON root contains a list.
+* Preserved successfully loaded events when another record was invalid.
+* Tested an invalid event containing 501 registrations against a capacity of 100.
+* Confirmed that the invalid record was skipped while 10 valid events loaded successfully.
+* Verified that CampusPulse continued running normally after encountering invalid data.
+
+**Key Learning:** A recoverable failure in one record should not prevent unrelated valid records from being processed.
+
+---
 
 ## Contributing
 
 CampusPulse is intended to become an open-source project.
 
-At the current stage, development is primarily focused on building and testing the core functionality. Contribution guidelines will be added as the project becomes ready for external contributors.
+Development is currently focused on building and testing the core application. Formal contribution guidelines will be introduced as the project matures.
 
-If you have an idea, find a bug, or want to contribute, feel free to open an issue or submit a pull request.
+Ideas, bug reports, suggestions, and pull requests are welcome.
 
 ## Development Philosophy
 
-CampusPulse is being built incrementally.
+CampusPulse is being built incrementally, alongside the developer's software engineering journey.
 
-The project will evolve alongside the developer's technical knowledge, starting with a simple Python prototype and gradually introducing more advanced concepts and technologies when they are needed.
+The principles guiding development are:
 
-The goal is to build a substantial, working software project rather than a collection of disconnected features.
+* Understand the code being written.
+* Prioritize functionality over unnecessary complexity.
+* Introduce technologies when they solve actual problems.
+* Test existing behavior before adding new features.
+* Learn from bugs rather than simply suppressing errors.
+* Build toward a maintainable and genuinely usable product.
 
-## 📊 Development Status
-
-CampusPulse is currently in active early development.
-
-### Implemented
-
-* [x] JSON-based event storage
-* [x] Load events when the application starts
-* [x] Save newly added events to persistent storage
-* [x] Basic event management system
-* [x] Display events
-* [x] Search events
-* [x] Case-insensitive event search
-* [x] Add new events
-* [x] Input validation
-* [x] Basic error handling for missing and corrupted event data
-* [x] Event data type validation
-* [x] Event state validation
-* [x] Skipping invalid stored event records
-* [x] Introduced an `Event` class
-* [x] Learned and implemented object-oriented concepts
-* [x] Added instance attributes and methods to the `Event` class
-* [x] Added `to_dict()` for event serialization
-* [x] Added `from_dict()` for event deserialization
-* [x] Converted loaded event dictionaries into `Event` objects
-* [x] Converted newly added events into `Event` objects
-* [x] Added event registration behavior
-* [x] Added event capacity checking with `is_full()`
-* [x] Added registration cancellation
-* [x] Added reusable event lookup with `find_event_by_name()`
-* [x] Persisted registration changes to JSON
-* [x] Added graceful handling of invalid event records
-* [x] Exception handling for missing event data
-* [x] Exception handling for invalid JSON data
-* [x] Tested failure cases for event loading
-
-## 📝 Development Log
-
-### Day 1 — Initial Prototype
-
-* Created the first Python-based CampusPulse event management system.
-* Implemented event display, search, and event creation.
-* Added basic input validation.
-* Added case-insensitive event searching.
-
-### Day 2 — Persistent Event Storage
-
-* Introduced JSON-based data storage.
-* Added `load_events()` to load event data when the application starts.
-* Added `save_events()` to persist changes to `events.json`.
-* Connected event creation to persistent storage.
-* Tested that newly added events remain available after restarting the application.
-
-### Day 3 — Error Handling & Data Validation
-
-* Added error handling for a missing `events.json` file using `FileNotFoundError`.
-* Added error handling for corrupted or invalid JSON data using `json.JSONDecodeError`.
-* Added validation to ensure event data is stored as a list.
-* Added handling for empty event lists when displaying events.
-* Practiced Python exception handling using specific exceptions instead of broad exception handling.
-* Improved the reliability of the event data loading and display process.
-
-### Day 4 — Introduction to Object-Oriented Programming
-
-* Introduced the `Event` class to represent individual campus events.
-* Learned the difference between classes and objects.
-* Learned how `self` refers to the current object instance.
-* Used `__init__()` to initialize event attributes.
-* Added instance attributes for event name, category, location, capacity, and registration count.
-* Added an instance method to display event information.
-* Began transitioning the project from dictionary-based event representation toward an object-oriented data model.
-
-### Day 5 — OOP Integration & Event Behavior
-
-* Converted JSON event dictionaries into `Event` objects when loading data.
-* Added `to_dict()` to convert `Event` objects back into dictionaries for JSON storage.
-* Added `from_dict()` as a class method for reconstructing `Event` objects from dictionaries.
-* Refactored `display_events()` to use the `Event.display()` method.
-* Refactored `search_event()` to work with object attributes and methods.
-* Updated `add_event()` to create `Event` objects instead of dictionaries.
-* Added the `register()` method to handle event registration.
-* Added the `is_full()` method to centralize event capacity checking.
-* Connected registration changes to persistent JSON storage.
-* Added a reusable `find_event_by_name()` function.
-* Tested the complete object-to-JSON and JSON-to-object workflow.
-
-### Day 6 — Validation, State Management & Robustness
-
-* Added type validation to the `Event` constructor.
-* Added validation for empty event fields.
-* Added validation to ensure event capacity is greater than zero.
-* Added validation to ensure registered participants cannot exceed event capacity.
-* Used `TypeError` for invalid data types and `ValueError` for invalid values.
-* Added exception handling when creating events from user input.
-* Added graceful handling of invalid event records loaded from JSON.
-* Tested corrupted event states without crashing the application.
-* Added `cancel_registration()` to safely reduce registration counts.
-* Added a menu option for cancelling registrations.
-* Refactored registration to use the reusable `find_event_by_name()` function.
-* Improved separation between user-interface logic and event lookup logic.
-* Tested registration and cancellation persistence through `events.json`.
-* Cleaned up temporary test data after validation testing.
-
-### Day 7 — Exception Handling & Failure Testing
-
-- Strengthened event loading with specific exception handling.
-- Added graceful handling for missing `events.json`.
-- Added graceful handling for corrupted or invalid JSON data.
-- Added handling for invalid event data during loading.
-- Tested failure scenarios to verify that CampusPulse continues running instead of crashing.
 ## License
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+This project is licensed under the MIT License. See `LICENSE` for details.
 
 ## Maintainer
 
 **Darsh Agarwal**
 
-CampusPulse is an open-source project built as a learning project with the goal of eventually becoming a useful platform for college students.
+CampusPulse — An open-source project built to make discovering college opportunities easier.
