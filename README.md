@@ -262,7 +262,7 @@ The planned full platform includes:
 
 **Objective:** Prevent one invalid event record from interrupting the entire event-loading process.
 
-
+* Reviewed registration and cancellation logic.
 * Verified capacity checking using `registered >= capacity`.
 * Tested registration boundary conditions.
 * Identified an issue where one invalid event could interrupt loading and discard valid records.
