@@ -1,112 +1,282 @@
-events = [
-    {
-        "name": "Origins",
-        "category": "Hackathon",
-        "date": "28-29 August 2026",
-        "location": "Melakottaiyur, India",
-        "capacity": 500,
-        "registered": 0
-    },
-    {
-        "name": "PEC Hacks 4.0",
-        "category": "Hackathon",
-        "date": "29-30 August 2026",
-        "location": "Panimalar Engineering College, Chennai",
-        "capacity": 500,
-        "registered": 0
-    },
-    {
-        "name": ".hack '26",
-        "category": "Hackathon",
-        "date": "4-6 September 2026",
-        "location": "India",
-        "capacity": 1000,
-        "registered": 0
-    },
-    {
-        "name": "ETHKochi",
-        "category": "Hackathon",
-        "date": "5 September 2026",
-        "location": "Kochi, India",
-        "capacity": 500,
-        "registered": 0
-    },
-    {
-        "name": "VENTURE'26",
-        "category": "Hackathon",
-        "date": "10 September 2026",
-        "location": "India",
-        "capacity": 500,
-        "registered": 0
-    },
-    {
-        "name": "Metamorph 2.0",
-        "category": "Hackathon",
-        "date": "12 September 2026",
-        "location": "India",
-        "capacity": 100,
-        "registered": 0
-    },
-    {
-        "name": "DSU DEVHACK 3.0",
-        "category": "Hackathon",
-        "date": "18 September 2026",
-        "location": "India",
-        "capacity": 1000,
-        "registered": 0
-    },
-    {
-        "name": "WebCraft24",
-        "category": "Hackathon",
-        "date": "18 September 2026",
-        "location": "India",
-        "capacity": 100,
-        "registered": 0
-    },
-    {
-        "name": "NexHack 2.0",
-        "category": "Hackathon",
-        "date": "25 September 2026",
-        "location": "India",
-        "capacity": 1000,
-        "registered": 0
-    },
-    {
-        "name": "HackNex Season 2",
-        "category": "Hackathon",
-        "date": "25 September 2026",
-        "location": "India",
-        "capacity": 500,
-        "registered": 0
-    }
-]
-def display_events():
-    print("Upcoming Hackathon Events:")
+import json
+
+
+class Event:
+    def __init__(self, name, category, date, location, capacity, registered):
+        if type(name) is not str:
+            raise TypeError("Event name must be a string.")
+
+        if type(category) is not str:
+            raise TypeError("Event category must be a string.")
+
+        if type(date) is not str:
+            raise TypeError("Event date must be a string.")
+
+        if type(location) is not str:
+            raise TypeError("Event location must be a string.")
+
+        if type(capacity) is not int:
+            raise TypeError("Capacity must be an integer.")
+
+        if type(registered) is not int:
+            raise TypeError("Registered count must be an integer.")
+        if capacity <= 0:
+            raise ValueError("Capacity must be greater than 0.")
+
+        if registered < 0 or registered > capacity:
+            raise ValueError("Registered count must be between 0 and capacity.")
+        if not name.strip():
+            raise ValueError("Event name cannot be empty.")
+
+        if not category.strip():
+            raise ValueError("Event category cannot be empty.")
+
+        if not date.strip():
+            raise ValueError("Event date cannot be empty.")
+
+        if not location.strip():
+            raise ValueError("Event location cannot be empty.")
+
+        self.name = name
+        self.category = category
+        self.date = date
+        self.location = location
+        self.capacity = capacity
+        self.registered = registered
+
+    def display(self):
+        print(f"Name: {self.name}")
+        print(f"Category: {self.category}")
+        print(f"Date: {self.date}")
+        print(f"Location: {self.location}")
+        print(f"Capacity: {self.capacity}")
+        print(f"Registered: {self.registered}")
+
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "category": self.category,
+            "date": self.date,
+            "location": self.location,
+            "capacity": self.capacity,
+            "registered": self.registered
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        return cls(
+            data["name"],
+            data["category"],
+            data["date"],
+            data["location"],
+            data["capacity"],
+            data["registered"]
+        )
+    def register(self):
+        if not self.is_full():
+            self.registered += 1
+            return True
+        return False
+    def cancel_registration(self):
+        if self.registered > 0:
+            self.registered -= 1
+            return True
+
+        return False
+
+    def is_full(self):
+        return self.registered >= self.capacity
+def load_events():
+    events = []
+
+    try:
+        with open("events.json", "r", encoding="utf-8") as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        return []
+    except json.JSONDecodeError:
+        print("Error: events.json is not a valid JSON file.")
+        return []
+
+    if not isinstance(data, list):
+        print("Error: events.json does not contain a valid list of events.")
+        return []
+
+    for event in data:
+        try:
+            events.append(Event.from_dict(event))
+        except (TypeError, ValueError) as error:
+            print(f"Skipping invalid event: {error}")
+    
+
+    return events
+
+
+def save_events(events):
+    event_data = []
+
     for event in events:
-        print(f"Name: {event['name']}")
-        print(f"Category: {event['category']}")
-        print(f"Date: {event['date']}")
-        print(f"Location: {event['location']}")
-        print(f"Capacity: {event['capacity']}")
-        print(f"Registered: {event['registered']}")
+        try:
+            event_data.append(event.to_dict())
+        except (AttributeError, TypeError, ValueError) as error:
+            print(f"Skipping invalid event: {error}")
+
+    with open("events.json", "w", encoding="utf-8") as file:
+        json.dump(event_data, file, indent=4)
+
+
+def display_events(events):
+    if not isinstance(events, list):
+        raise TypeError("events must be a list")
+    if not events:
+        print("No events to display.")
+        return
+
+    print("Upcoming Hackathon Events:")
+
+    for event in events:
+        event.display()
         print("-" * 30)
+def find_event_by_name(events, search_name):
+    if not isinstance(events, list):
+        raise TypeError("events must be a list")
+
+    search_name = search_name.strip()
+
+    if not search_name:
+        return None
+
+    for event in events:
+        if event.name.casefold() == search_name.casefold():
+            return event
+
+    return None
+
 def search_event(events):
     """Search for an event by name, display it, and return the matching event."""
+
     if not isinstance(events, list):
         raise TypeError("events must be a list")
 
     search_name = input("Enter event name to search: ").strip()
+
     if not search_name:
         print("Event name cannot be empty.")
         return None
 
-    for event in events:
-        if event.get("name", "").casefold() == search_name.casefold():
-            print("Event Found!")
-            print(event)
-            return event
-    else:
-        print("Event not found.")
-        return None
+    event = find_event_by_name(events, search_name)
 
-search_event(events)
+    if event:
+        print("Event Found!")
+        event.display()
+        return event
+
+    print("Event not found.")
+    return None
+
+
+def add_event(events):
+    """Add a new event to the events list."""
+
+    if not isinstance(events, list):
+        raise TypeError("events must be a list")
+
+    name = input("Enter event name: ").strip()
+    category = input("Enter event category: ").strip()
+    date = input("Enter event date (DD-MM-YYYY): ").strip()
+    location = input("Enter event location: ").strip()
+    capacity = input("Enter event capacity: ").strip()
+
+    if not name or not category or not date or not location or not capacity:
+        print("All fields are required.")
+        return
+
+    try:
+        capacity = int(capacity)
+    except ValueError:
+        print("Capacity must be an integer.")
+        return
+
+    try:
+        new_event = Event(
+            name,
+            category,
+            date,
+            location,
+            capacity,
+            0
+        )
+    except ValueError as error:
+        print(f"Invalid event: {error}")
+        return
+
+    events.append(new_event)
+
+    print(f"Event '{name}' added successfully!")
+
+
+def main():
+    events = load_events()
+
+    while True:
+        print("\nHackathon Event Management System")
+        print("1. Display Events")
+        print("2. Search Event")
+        print("3. Add Event")
+        print("4. Register for Event")
+        print("5. Cancel Registration")
+        print("6. Exit")
+
+        choice = input("Enter your choice (1-6): ").strip()
+
+        if choice == '1':
+            display_events(events)
+
+        elif choice == '2':
+            search_event(events)
+
+        elif choice == '3':
+            add_event(events)
+            save_events(events)
+
+        elif choice == '4':
+            search_name = input("Enter event name to register: ").strip()
+
+            event = find_event_by_name(events, search_name)
+
+            if event:
+                event.display()
+
+                if event.register():
+                    print("Registration successful!")
+                    save_events(events)
+                else:
+                    print("Registration failed. Event is full.")
+            else:
+                print("Event not found.")
+
+        elif choice == '5':
+            search_name = input("Enter event name to cancel registration: ").strip()
+
+            event = find_event_by_name(events, search_name)
+
+            if event:
+                event.display()
+
+                if event.cancel_registration():
+                    print("Registration cancelled successfully!")
+                    save_events(events)
+                else:
+                    print("Cancellation failed. No registrations found.")
+            else:
+                print("Event not found.")
+
+        elif choice == '6':
+            print("Exiting the program.")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+
+if __name__ == "__main__":
+    main()
