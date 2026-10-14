@@ -272,6 +272,23 @@ The planned full platform includes:
 * Tested an invalid event containing 501 registrations against a capacity of 100.
 * Confirmed that the invalid record was skipped while 10 valid events loaded successfully.
 * Verified that CampusPulse continued running normally after encountering invalid data.
+### Day 9 — Introduction to Automated Unit Testing
+
+* Introduced Python's built-in `unittest` framework.
+* Created `test_event.py` to test the `Event` class independently.
+* Used `setUp()` to initialize fresh test objects.
+* Implemented six automated tests covering:
+
+  * Successful event registration.
+  * Registration rejection when an event is full.
+  * Successful registration cancellation.
+  * Cancellation rejection when no participants are registered.
+  * Full-event detection.
+  * Detection of events with available capacity.
+* Used `assertTrue()`, `assertFalse()`, and `assertEqual()` to verify expected behavior.
+* Successfully executed all six tests.
+
+**Result:** 6 tests passed.
 
 **Key Learning:** A recoverable failure in one record should not prevent unrelated valid records from being processed.
 
