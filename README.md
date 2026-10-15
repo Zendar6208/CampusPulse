@@ -287,11 +287,30 @@ The planned full platform includes:
   * Detection of events with available capacity.
 * Used `assertTrue()`, `assertFalse()`, and `assertEqual()` to verify expected behavior.
 * Successfully executed all six tests.
+### Day 10 — Testing Input Validation
 
-**Result:** 6 tests passed.
+Expanded the automated test suite to verify that CampusPulse correctly rejects invalid event data.
 
-**Key Learning:** A recoverable failure in one record should not prevent unrelated valid records from being processed.
+**What I implemented:**
 
+* Learned to use `assertRaises()` from Python's `unittest` framework.
+* Added three constructor validation tests:
+
+  * Reject negative event capacity.
+  * Reject registration counts exceeding event capacity.
+  * Reject negative registration counts.
+* Tested invalid inputs during object creation rather than modifying existing objects.
+* Expanded the test suite from 6 to 9 tests.
+
+**Key learning:** Testing isn't only about confirming that valid operations succeed. It's equally important to verify that invalid operations fail in the expected way.
+## Running Tests
+
+CampusPulse uses Python's built-in `unittest` framework.
+
+Run the automated tests using:
+
+```bash
+python -m unittest test_event -v
 ---
 
 ## Contributing
