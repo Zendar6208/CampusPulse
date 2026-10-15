@@ -67,6 +67,14 @@ The current Python-based prototype supports:
 * Preserve valid records when other records are invalid.
 * Continue application execution after recoverable loading errors.
 
+### Automated Testing
+
+* Unit tests using Python's built-in `unittest` framework.
+* Registration and cancellation tests.
+* Event capacity detection tests.
+* Constructor validation tests.
+* Nine automated test cases implemented.
+
 ## Event Data Model
 
 Each event currently contains:
@@ -90,6 +98,7 @@ The current prototype uses:
 * JSON for persistent storage
 * Object-Oriented Programming
 * Python exception handling
+* Python `unittest` for automated testing
 * Git and GitHub for version control
 
 No external Python dependencies are currently required.
@@ -118,7 +127,7 @@ cd CampusPulse
 Run the application:
 
 ```bash
-python main
+python main.py
 ```
 
 ### Available Menu
@@ -141,7 +150,8 @@ The application uses `events.json` for persistent event storage.
 ```text
 CampusPulse/
 │
-├── main
+├── main.py
+├── test_event.py
 ├── events.json
 ├── README.md
 ├── LICENSE
@@ -149,6 +159,18 @@ CampusPulse/
 ```
 
 The structure will evolve as the project grows.
+
+## Running Tests
+
+CampusPulse uses Python's built-in `unittest` framework.
+
+Run the automated tests using:
+
+```bash
+python -m unittest test_event -v
+```
+
+The test suite currently contains nine tests covering registration, cancellation, capacity detection, and input validation.
 
 ## Development Status
 
@@ -172,10 +194,12 @@ The structure will evolve as the project grows.
 * [x] Individual invalid-record handling
 * [x] Preservation of valid events during loading failures
 * [x] Manual edge-case and failure testing
+* [x] Automated unit testing
+* [x] Constructor validation tests
 
 ### Next Development Priorities
 
-* [ ] Automated unit testing
+* [ ] Automated testing for JSON persistence
 * [ ] Improved project organization
 * [ ] Further separation of application logic and CLI interactions
 * [ ] Additional event-management capabilities
@@ -272,6 +296,7 @@ The planned full platform includes:
 * Tested an invalid event containing 501 registrations against a capacity of 100.
 * Confirmed that the invalid record was skipped while 10 valid events loaded successfully.
 * Verified that CampusPulse continued running normally after encountering invalid data.
+
 ### Day 9 — Introduction to Automated Unit Testing
 
 * Introduced Python's built-in `unittest` framework.
@@ -287,6 +312,7 @@ The planned full platform includes:
   * Detection of events with available capacity.
 * Used `assertTrue()`, `assertFalse()`, and `assertEqual()` to verify expected behavior.
 * Successfully executed all six tests.
+
 ### Day 10 — Testing Input Validation
 
 Expanded the automated test suite to verify that CampusPulse correctly rejects invalid event data.
@@ -300,17 +326,10 @@ Expanded the automated test suite to verify that CampusPulse correctly rejects i
   * Reject registration counts exceeding event capacity.
   * Reject negative registration counts.
 * Tested invalid inputs during object creation rather than modifying existing objects.
-* Expanded the test suite from 6 to 9 tests.
+* Expanded the test suite from six to nine tests.
 
 **Key learning:** Testing isn't only about confirming that valid operations succeed. It's equally important to verify that invalid operations fail in the expected way.
-## Running Tests
 
-CampusPulse uses Python's built-in `unittest` framework.
-
-Run the automated tests using:
-
-```bash
-python -m unittest test_event -v
 ---
 
 ## Contributing
