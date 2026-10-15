@@ -49,4 +49,34 @@ class TestEvent(unittest.TestCase):
         result = self.event.is_full()
 
         self.assertFalse(result)
+    def test_negative_capacity(self):
+        with self.assertRaises(ValueError):
+            Event(
+                "Test Event",
+                "Hackathon",
+                "2026-10-20",
+                "VIT-AP",
+                -10,
+                0
+            )
+    def test_negative_registered(self):
+        with self.assertRaises(ValueError):
+            Event(
+                "Test Event",
+                "Hackathon",
+                "2026-10-20",
+                "VIT-AP",
+                100,
+                -5
+            )
+    def test_registered_exceeds_capacity(self):
+        with self.assertRaises(ValueError):
+            Event(
+                "Test Event",
+                "Hackathon",
+                "2026-10-20",
+                "VIT-AP",
+                100,
+                150
+            )
     
