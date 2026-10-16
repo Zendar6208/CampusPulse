@@ -89,3 +89,21 @@ class TestEvent(unittest.TestCase):
             "registered": 50
         }
         self.assertEqual(self.event.to_dict(), expected_dict)
+    def test_from_dict(self):
+        event_dict = {
+            "name": "Test Event",
+            "category": "Test Category",
+            "date": "2023-10-10",
+            "location": "Test Location",
+            "capacity": 100,
+            "registered": 50
+        }
+        event = Event.from_dict(event_dict)
+        self.assertIsInstance(event, Event)
+        self.assertEqual(event.name, "Test Event")
+        self.assertEqual(event.category, "Test Category")
+        self.assertEqual(event.date, "2023-10-10")
+        self.assertEqual(event.location, "Test Location")
+        self.assertEqual(event.capacity, 100)
+        self.assertEqual(event.registered, 50)
+        
