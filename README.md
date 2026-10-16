@@ -1,6 +1,6 @@
 # CampusPulse
 
-
+**Discover opportunities beyond your campus.**
 
 CampusPulse is an open-source project designed to help college students discover hackathons, competitions, workshops, fests, conferences, and other college events in one place.
 
