@@ -79,4 +79,13 @@ class TestEvent(unittest.TestCase):
                 100,
                 150
             )
-    
+    def test_to_dict(self):
+        expected_dict = {
+            "name": "Test Event",
+            "category": "Test Category",
+            "date": "2023-10-10",
+            "location": "Test Location",
+            "capacity": 100,
+            "registered": 50
+        }
+        self.assertEqual(self.event.to_dict(), expected_dict)
