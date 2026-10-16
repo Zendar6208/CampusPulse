@@ -86,11 +86,11 @@ class Event:
 
     def is_full(self):
         return self.registered >= self.capacity
-def load_events():
+def load_events(filename="events.json"):
     events = []
 
     try:
-        with open("events.json", "r", encoding="utf-8") as file:
+        with open(filename, "r", encoding="utf-8") as file:
             data = json.load(file)
     except FileNotFoundError:
         return []
@@ -112,7 +112,7 @@ def load_events():
     return events
 
 
-def save_events(events):
+def save_events(events, filename="events.json"):
     event_data = []
 
     for event in events:
@@ -121,7 +121,7 @@ def save_events(events):
         except (AttributeError, TypeError, ValueError) as error:
             print(f"Skipping invalid event: {error}")
 
-    with open("events.json", "w", encoding="utf-8") as file:
+    with open(filename, "w", encoding="utf-8") as file:
         json.dump(event_data, file, indent=4)
 
 
