@@ -125,3 +125,8 @@ class TestEvent(unittest.TestCase):
             self.assertEqual(len(loaded_events), len(events))
             for original, loaded in zip(events, loaded_events):
                 self.assertEqual(original.to_dict(), loaded.to_dict())
+    def test_load_missing_file(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_file= os.path.join(temp_dir,"non_existent_file.json")
+            loaded_events = load_events(filename=temp_file)
+            self.assertEqual(loaded_events, [])
