@@ -130,3 +130,11 @@ class TestEvent(unittest.TestCase):
             temp_file= os.path.join(temp_dir,"non_existent_file.json")
             loaded_events = load_events(filename=temp_file)
             self.assertEqual(loaded_events, [])
+    def test_load_malformed_json(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_file=os.path.join(temp_dir,"malformed.json")
+            with open(temp_file, "w", encoding="utf-8") as f:
+                f.write("{malformed json}")
+                f.flush()
+            loaded_events = load_events(filename=temp_file)
+            self.assertEqual(loaded_events, [])
