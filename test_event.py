@@ -1,5 +1,8 @@
 import unittest
 from main import Event
+import tempfile
+import os
+from main import load_events, save_events
 
 class TestEvent(unittest.TestCase):
 
@@ -106,4 +109,19 @@ class TestEvent(unittest.TestCase):
         self.assertEqual(event.location, "Test Location")
         self.assertEqual(event.capacity, 100)
         self.assertEqual(event.registered, 50)
-        
+    def test_save_and_load_events(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_file = os.path.join(temp_dir, "test_events.json")
+
+            events = [
+                Event("Event 1", "Category 1", "2023-10-10", "Location 1", 100, 50),
+                Event("Event 2", "Category 2", "2023-11-15", "Location 2", 200, 150)
+            ]
+
+            save_events(events, filename=temp_file)
+
+            loaded_events = load_events(filename=temp_file)
+
+            self.assertEqual(len(loaded_events), len(events))
+            for original, loaded in zip(events, loaded_events):
+                self.assertEqual(original.to_dict(), loaded.to_dict())
