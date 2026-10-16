@@ -105,8 +105,8 @@ def load_events(filename="events.json"):
     for event in data:
         try:
             events.append(Event.from_dict(event))
-        except (TypeError, ValueError) as error:
-            print(f"Skipping invalid event: {error}")
+        except (TypeError, ValueError, KeyError) as error:
+            print(f"Skipping invalid event data: {error}")
     
 
     return events

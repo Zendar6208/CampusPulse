@@ -1,8 +1,9 @@
 import unittest
-from main import Event
 import tempfile
 import os
-from main import load_events, save_events
+import json
+
+from main import Event, save_events, load_events
 
 class TestEvent(unittest.TestCase):
 
@@ -138,3 +139,43 @@ class TestEvent(unittest.TestCase):
                 f.flush()
             loaded_events = load_events(filename=temp_file)
             self.assertEqual(loaded_events, [])
+    def test_load_skips_invalid_event(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_file = os.path.join(temp_dir, "invalid_event.json")
+            invalid_event_data = [
+                {
+                    "name": "Valid Event",
+                    "category": "Category",
+                    "date": "2023-10-10",
+                    "location": "Location",
+                    "capacity": 100,
+                    "registered": 50
+                },
+                {
+                    # Missing 'name' field
+                    "category": "Category",
+                    "date": "2023-11-15",
+                    "location": "Location",
+                    "capacity": 200,
+                    "registered": 150
+                },
+                {
+                    "name": "Second Valid Event",
+                    "category": "Workshop",
+                    "date": "2023-12-10",
+                    "location": "Location 2",
+                    "capacity": 200,
+                    "registered": 75
+                }
+    
+            ]
+            with open(temp_file, "w", encoding="utf-8") as f:
+                json.dump(invalid_event_data, f)
+            
+            loaded_events = load_events(filename=temp_file)
+            self.assertEqual(len(loaded_events), 2)
+            self.assertEqual(
+            [event.name for event in loaded_events],
+            ["Valid Event", "Second Valid Event"]
+            )
+
