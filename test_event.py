@@ -178,4 +178,15 @@ class TestEvent(unittest.TestCase):
             [event.name for event in loaded_events],
             ["Valid Event", "Second Valid Event"]
             )
+    def test_load_invalid_json_root(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_file = os.path.join(temp_dir, "invalid_root.json")
+
+            with open(temp_file, "w", encoding="utf-8") as f:
+                json.dump({"not": "a list"}, f)
+
+            loaded_events = load_events(filename=temp_file)
+            self.assertEqual(loaded_events, [])
+            
+
 
