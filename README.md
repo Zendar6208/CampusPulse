@@ -330,6 +330,25 @@ Expanded the automated test suite to verify that CampusPulse correctly rejects i
 
 **Key learning:** Testing isn't only about confirming that valid operations succeed. It's equally important to verify that invalid operations fail in the expected way.
 
+### Day 11 — Automated Persistence Testing
+
+**Objective:** Expand automated testing beyond individual `Event` methods to verify JSON persistence and failure handling.
+
+**What I implemented:**
+
+* Added automated tests for event serialization using `to_dict()`.
+* Added deserialization tests using `Event.from_dict()`.
+* Refactored `save_events()` and `load_events()` to accept optional file paths while preserving `events.json` as the default.
+* Used `tempfile.TemporaryDirectory()` to test file operations without modifying actual application data.
+* Implemented round-trip persistence testing with multiple events.
+* Tested loading behaviour when a JSON file is missing or malformed.
+* Tested preservation of valid events when an invalid record appears between them.
+* Identified and fixed an unhandled `KeyError` caused by missing required event fields.
+* Added a test verifying that invalid JSON root structures are rejected.
+* Expanded the automated test suite toward 16 test cases.
+
+**Key learning:** Automated tests should verify not only successful operations but also how software behaves when files are missing, data is corrupted, or individual records are invalid.
+
 ---
 
 ## Contributing
