@@ -349,6 +349,29 @@ Expanded the automated test suite to verify that CampusPulse correctly rejects i
 
 **Key learning:** Automated tests should verify not only successful operations but also how software behaves when files are missing, data is corrupted, or individual records are invalid.
 
+### Day 12 — Modular Architecture & Search Testing
+
+**Objective:** Improve project maintainability by separating responsibilities into independent Python modules.
+
+**What I implemented:**
+
+* Extracted the `Event` class into `event.py`.
+* Moved JSON persistence functions into `storage.py`.
+* Extracted reusable event lookup logic into `event_service.py`.
+* Refactored `main.py` to focus on CLI interactions and application flow.
+* Updated test imports to reference their respective modules directly.
+* Introduced `test_event_service.py` for testing event lookup independently.
+* Added automated tests covering:
+
+  * Successful event lookup.
+  * Missing events.
+  * Case-insensitive searching.
+  * Empty search strings.
+  * Whitespace-only search strings.
+* Expanded the automated test suite to 21 tests.
+
+**Key learning:** Separating responsibilities makes code easier to understand, maintain, test and reuse. Application logic should remain independent of the interface through which users interact with it.
+
 ---
 
 ## Contributing
