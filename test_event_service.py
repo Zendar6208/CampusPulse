@@ -20,11 +20,10 @@ class TestEventService(unittest.TestCase):
 
     def test_find_event_by_name_case_insensitive(self):
         event = find_event_by_name(self.events, "HACKATHON 1")
-        self.assertEqual(event.name, "Hackathon 1")
+        self.assertIs(event, self.events[0])
     def test_find_event_by_name_empty_string(self):
         event = find_event_by_name(self.events, "")
         self.assertIsNone(event)
     def test_find_event_by_name_whitespace_string(self):
         event = find_event_by_name(self.events, "   ")
         self.assertIsNone(event)
-        
