@@ -3,7 +3,8 @@ import tempfile
 import os
 import json
 
-from main import Event, save_events, load_events
+from event import Event
+from storage import save_events, load_events
 
 class TestEvent(unittest.TestCase):
 
