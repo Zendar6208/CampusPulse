@@ -1,5 +1,6 @@
 from storage import load_events, save_events
 from event import Event
+from event_service import find_event_by_name
 
 
 
@@ -18,20 +19,7 @@ def display_events(events):
         print("-" * 30)
 
 
-def find_event_by_name(events, search_name):
-    if not isinstance(events, list):
-        raise TypeError("events must be a list")
 
-    search_name = search_name.strip()
-
-    if not search_name:
-        return None
-
-    for event in events:
-        if event.name.casefold() == search_name.casefold():
-            return event
-
-    return None
 
 def search_event(events):
     """Search for an event by name, display it, and return the matching event."""
