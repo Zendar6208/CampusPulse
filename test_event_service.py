@@ -1,6 +1,5 @@
 import unittest
 from event import Event
-from event_service import find_event_by_name
 from event_service import find_event_by_name, create_event
 
 class TestEventService(unittest.TestCase):
@@ -39,5 +38,18 @@ class TestEventService(unittest.TestCase):
         with self.assertRaises(ValueError):
             create_event(self.events, "Hackathon 5", "AI", "05-01-2023", "Location 5", -10)
         self.assertEqual(len(self.events), original_length)
-
+    def test_create_event_invalid_events_type(self):
+        with self.assertRaises(TypeError):
+            create_event("not a list", "Hackathon 6", "AI", "06-01-2023", "Location 6", 100)
+    def test_create_event_invalid_input_types(self):
+        with self.assertRaises(TypeError):
+            create_event(self.events, 123, "AI", "07-01-2023", "Location 7", 100)
+        with self.assertRaises(TypeError):
+            create_event(self.events, "Hackathon 7", 456, "07-01-2023", "Location 7", 100)
+        with self.assertRaises(TypeError):
+            create_event(self.events, "Hackathon 7", "AI", 789, "Location 7", 100)
+        with self.assertRaises(TypeError):
+            create_event(self.events, "Hackathon 7", "AI", "07-01-2023", 101112, 100)
+        with self.assertRaises(TypeError):
+            create_event(self.events, "Hackathon 7", "AI", "07-01-2023", "Location 7", "not an int")
 
