@@ -1,8 +1,8 @@
 from storage import load_events, save_events
 from event import Event
 from event_service import find_event_by_name
-
-
+from event_service import create_event
+from event_service import find_event_by_name, create_event
 
 
 def display_events(events):
@@ -67,19 +67,19 @@ def add_event(events):
         return
 
     try:
-        new_event = Event(
+        new_event = create_event(
+            events,
             name,
             category,
             date,
             location,
-            capacity,
-            0
+            capacity
         )
-    except ValueError as error:
+    except (ValueError, TypeError) as error:
         print(f"Invalid event: {error}")
         return
 
-    events.append(new_event)
+    
 
     print(f"Event '{name}' added successfully!")
 
