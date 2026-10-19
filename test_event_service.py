@@ -34,5 +34,10 @@ class TestEventService(unittest.TestCase):
         self.assertIs(new_event, self.events[-1])
         self.assertEqual(len(self.events), 4)
         self.assertEqual(new_event.registered, 0)
-        
+    def test_create_event_negative_capacity(self):
+        original_length = len(self.events)
+        with self.assertRaises(ValueError):
+            create_event(self.events, "Hackathon 5", "AI", "05-01-2023", "Location 5", -10)
+        self.assertEqual(len(self.events), original_length)
+
 
