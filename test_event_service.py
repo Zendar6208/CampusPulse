@@ -1,6 +1,7 @@
 import unittest
 from event import Event
 from event_service import find_event_by_name
+from event_service import find_event_by_name, create_event
 
 class TestEventService(unittest.TestCase):
     def setUp(self):
@@ -27,3 +28,11 @@ class TestEventService(unittest.TestCase):
     def test_find_event_by_name_whitespace_string(self):
         event = find_event_by_name(self.events, "   ")
         self.assertIsNone(event)
+    def test_create_event_success(self):
+        new_event= create_event(self.events, "Hackathon 4", "AI", "04-01-2023", "Location 4", 250)
+        self.assertEqual(new_event.name, "Hackathon 4")
+        self.assertIs(new_event, self.events[-1])
+        self.assertEqual(len(self.events), 4)
+        self.assertEqual(new_event.registered, 0)
+        
+
