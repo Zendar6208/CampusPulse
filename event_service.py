@@ -1,3 +1,5 @@
+from event import Event
+
 def find_event_by_name(events, search_name):
     if not isinstance(events, list):
         raise TypeError("events must be a list")
@@ -12,3 +14,13 @@ def find_event_by_name(events, search_name):
             return event
 
     return None
+def create_event(events, name, category, date, location, capacity):
+    if not isinstance(events, list):
+        raise TypeError("events must be a list")
+
+    if not isinstance(name,str) or not isinstance(category,str) or not isinstance(date,str) or not isinstance(location,str) or not isinstance(capacity,int):
+        raise TypeError("Invalid input types for event creation.")
+    
+    event=Event(name, category, date, location, capacity, 0)
+    events.append(event)
+    return event
