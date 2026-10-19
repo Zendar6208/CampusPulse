@@ -372,6 +372,24 @@ Expanded the automated test suite to verify that CampusPulse correctly rejects i
 
 **Key learning:** Separating responsibilities makes code easier to understand, maintain, test and reuse. Application logic should remain independent of the interface through which users interact with it.
 
+### Day 13 — Reusable Event Creation & Automated Testing
+
+**Objective:** Separate event creation logic from CLI interactions to improve modularity and prepare CampusPulse for future interfaces.
+
+**Implemented:**
+
+* Introduced `create_event()` in `event_service.py`.
+* Separated event creation from terminal input handling.
+* Refactored `add_event()` to use the event creation service.
+* Preserved existing event validation through the `Event` constructor.
+* Ensured invalid events are rejected before modifying the event collection.
+* Added automated tests for successful event creation, negative capacity, invalid event collection types, and invalid input types.
+* Expanded the automated test suite to 25 tests.
+
+**Key Learning:**
+
+Separating application logic from user-interface code allows the same functionality to be reused across different interfaces without duplicating implementation.
+
 ---
 
 ## Contributing
