@@ -1,9 +1,6 @@
 from storage import load_events, save_events
 from event import Event
-from event_service import find_event_by_name
-from event_service import create_event
-from event_service import find_event_by_name, create_event
-
+from event_service import find_event_by_name, create_event, register_for_event
 
 def display_events(events):
     if not isinstance(events, list):
@@ -112,11 +109,12 @@ def main():
             search_name = input("Enter event name to register: ").strip()
 
             event = find_event_by_name(events, search_name)
+            result = register_for_event(events, search_name)
 
             if event:
                 event.display()
 
-                if event.register():
+                if result:
                     print("Registration successful!")
                     save_events(events)
                 else:
