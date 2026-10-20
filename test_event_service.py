@@ -1,6 +1,6 @@
 import unittest
 from event import Event
-from event_service import find_event_by_name, create_event
+from event_service import find_event_by_name, create_event, register_for_event
 
 class TestEventService(unittest.TestCase):
     def setUp(self):
@@ -52,4 +52,37 @@ class TestEventService(unittest.TestCase):
             create_event(self.events, "Hackathon 7", "AI", "07-01-2023", 101112, 100)
         with self.assertRaises(TypeError):
             create_event(self.events, "Hackathon 7", "AI", "07-01-2023", "Location 7", "not an int")
+    def test_register_for_event_success(self):
+        event=self.events[0]
+        original_registered = event.registered
+        event_name="Hackathon 1"
+        result = register_for_event(self.events, event_name)
+        self.assertTrue(result)
+        self.assertEqual(event.registered, original_registered + 1)
+    def test_register_for_event_not_found(self):
+        event_name = "Nonexistent Event"
+
+        original_counts = [event.registered for event in self.events]
+
+        result = register_for_event(self.events, event_name)
+        
+        self.assertFalse(result)
+        self.assertEqual([event.registered for event in self.events], original_counts)
+    def test_register_for_event_invalid_events_type(self):
+        with self.assertRaises(TypeError):
+            register_for_event("not a list", "Hackathon 1")
+    def test_register_for_event_invalid_event_name_type(self):
+        with self.assertRaises(TypeError):
+            register_for_event(self.events, 123)
+    def test_register_for_event_full_capacity(self):
+        event = self.events[0]
+        event.registered = event.capacity
+
+        event_name = event.name
+
+        result = register_for_event(self.events, event_name)
+
+        self.assertFalse(result)
+        self.assertEqual(event.registered, event.capacity)
+        
 

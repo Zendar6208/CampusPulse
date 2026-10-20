@@ -1,4 +1,6 @@
 from event import Event
+import event
+
 
 def find_event_by_name(events, search_name):
     if not isinstance(events, list):
@@ -27,3 +29,14 @@ def create_event(events, name, category, date, location, capacity):
     event = Event(name, category, date, location, capacity, 0)
     events.append(event)
     return event
+def register_for_event(events,event_name):
+    if not isinstance(events,list):
+        raise TypeError("events must be a list")
+    if not isinstance(event_name,str):
+        raise TypeError("event_name must be a string")
+    event = find_event_by_name(events,event_name)
+    if event is None:
+        return False
+    return event.register()
+
+    
