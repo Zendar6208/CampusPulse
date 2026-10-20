@@ -1,6 +1,6 @@
 import unittest
 from event import Event
-from event_service import find_event_by_name, create_event, register_for_event
+from event_service import find_event_by_name, create_event, register_for_event, cancel_event_registration
 
 class TestEventService(unittest.TestCase):
     def setUp(self):
@@ -84,5 +84,18 @@ class TestEventService(unittest.TestCase):
 
         self.assertFalse(result)
         self.assertEqual(event.registered, event.capacity)
-        
+    def test_cancel_registration_for_event_success(self):
+        event = self.events[0]
+        event.registered = 5
+
+        original_registered = event.registered
+        event_name = "Hackathon 1"
+
+        result = cancel_event_registration(self.events, event_name)
+
+        self.assertTrue(result)
+        self.assertEqual(event.registered, original_registered - 1)
+
+
+
 
