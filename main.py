@@ -1,6 +1,6 @@
 from storage import load_events, save_events
 from event import Event
-from event_service import find_event_by_name, create_event, register_for_event
+from event_service import find_event_by_name, create_event, register_for_event, cancel_event_registration
 
 def display_events(events):
     if not isinstance(events, list):
@@ -127,16 +127,17 @@ def main():
 
             event = find_event_by_name(events, search_name)
 
-            if event:
+            if event is None:
+                print("Event not found.")
+            else:
                 event.display()
+                result = cancel_event_registration(events, search_name)
 
-                if event.cancel_registration():
+                if result:
                     print("Registration cancelled successfully!")
                     save_events(events)
                 else:
                     print("Cancellation failed. No registrations found.")
-            else:
-                print("Event not found.")
 
         elif choice == '6':
             print("Exiting the program.")
