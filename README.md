@@ -390,6 +390,35 @@ Expanded the automated test suite to verify that CampusPulse correctly rejects i
 
 Separating application logic from user-interface code allows the same functionality to be reused across different interfaces without duplicating implementation.
 
+### Day 14 — Registration & Cancellation Service Refactoring
+
+**Objective:** Separate registration management from CLI interactions and improve the testability of event operations.
+
+**What I implemented:**
+
+* Introduced `register_for_event()` in `event_service.py`.
+* Introduced `cancel_event_registration()` as a reusable service function.
+* Reused `find_event_by_name()` for locating events.
+* Delegated registration and cancellation rules to the existing `Event` class methods.
+* Added input type validation to both service functions.
+* Refactored the CLI to use the registration and cancellation services.
+* Fixed an issue where cancellation could execute twice for a single request.
+* Ensured event data is saved only after successful registration or cancellation.
+* Added automated tests covering:
+
+  * Successful registration and cancellation.
+  * Nonexistent events.
+  * Full-capacity registration attempts.
+  * Cancellation attempts with zero registrations.
+  * Invalid event collection types.
+  * Invalid event name types.
+* Expanded the automated test suite from 25 to 35 tests.
+
+**Key Learning:**
+
+Separating business logic from user-interface code prevents duplicated operations and makes application behaviour easier to test. Reusing existing class methods also ensures that registration rules remain consistent throughout the application.
+
+
 ---
 
 ## Contributing
