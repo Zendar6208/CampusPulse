@@ -119,23 +119,23 @@ def test_cancel_registration_for_event_zero_registrations(self):
     self.assertEqual(event.registered, 0)
 
 
-def test_cancel_registration_for_event_not_found(self):
-    event_name = "Nonexistent Event"
-    original_counts = [event.registered for event in self.events]
+    def test_cancel_registration_for_event_not_found(self):
+        event_name = "Nonexistent Event"
+        original_counts = [event.registered for event in self.events]
 
-    result = cancel_event_registration(self.events, event_name)
-            
-    self.assertFalse(result)
-    self.assertEqual([event.registered for event in self.events], original_counts)
+        result = cancel_event_registration(self.events, event_name)
+                
+        self.assertFalse(result)
+        self.assertEqual([event.registered for event in self.events], original_counts)
 
-def test_cancel_registration_invalid_events_type(self):
-    with self.assertRaises(TypeError):
-        cancel_event_registration("not a list", "Hackathon 1")
+    def test_cancel_registration_invalid_events_type(self):
+        with self.assertRaises(TypeError):
+            cancel_event_registration("not a list", "Hackathon 1")
 
 
-def test_cancel_registration_invalid_event_name_type(self):
-    with self.assertRaises(TypeError):
-       cancel_event_registration(self.events, 123)
+    def test_cancel_registration_invalid_event_name_type(self):
+        with self.assertRaises(TypeError):
+            cancel_event_registration(self.events, 123)
 
 
 

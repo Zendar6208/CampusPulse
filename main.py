@@ -55,13 +55,13 @@ def add_event(events):
 
     if not name or not category or not date or not location or not capacity:
         print("All fields are required.")
-        return
+        return False
 
     try:
         capacity = int(capacity)
     except ValueError:
         print("Capacity must be an integer.")
-        return
+        return False
 
     try:
         new_event = create_event(
@@ -74,11 +74,12 @@ def add_event(events):
         )
     except (ValueError, TypeError) as error:
         print(f"Invalid event: {error}")
-        return
+        return False
 
     
 
     print(f"Event '{name}' added successfully!")
+    return True
 
 
 def main():
@@ -102,8 +103,8 @@ def main():
             search_event(events)
 
         elif choice == '3':
-            add_event(events)
-            save_events(events)
+            if add_event(events):
+                save_events(events)
 
         elif choice == '4':
             search_name = input("Enter event name to register: ").strip()
