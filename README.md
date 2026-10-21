@@ -418,6 +418,28 @@ Separating application logic from user-interface code allows the same functional
 
 Separating business logic from user-interface code prevents duplicated operations and makes application behaviour easier to test. Reusing existing class methods also ensures that registration rules remain consistent throughout the application.
 
+### Day 15 — Improving Event Creation and Persistence
+
+**Objective:** Ensure event data is saved only after successful event creation and introduce automated testing for CLI input handling.
+
+**What I implemented:**
+
+* Updated `add_event()` to return `True` after successful creation and `False` when input validation fails.
+* Modified the CLI to call `save_events()` only when `add_event()` succeeds.
+* Introduced `test_main.py` to test CLI functions independently.
+* Used `unittest.mock.patch` to simulate user input without manual interaction.
+* Added five tests covering:
+
+  * Successful event creation.
+  * Empty event names.
+  * Non-integer capacity.
+  * Negative capacity.
+  * Invalid events collection type.
+* Expanded the automated test suite to 36 tests.
+
+**Key Learning:**
+
+Functions can communicate operation outcomes through return values. Separating successful and unsuccessful execution paths helps prevent unnecessary file operations and makes CLI behaviour easier to verify through automated tests.
 
 ---
 
