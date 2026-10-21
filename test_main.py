@@ -17,6 +17,8 @@ class TestAddEvent(unittest.TestCase):
         self.assertTrue(result)
         self.assertEqual(len(events),1)
         self.assertEqual(events[0].name, "Campus Hackathon")
+
+
     def test_add_event_empty_name(self):
         events = []
 
@@ -31,6 +33,8 @@ class TestAddEvent(unittest.TestCase):
 
         self.assertFalse(result)
         self.assertEqual(len(events), 0)
+
+
     def test_add_event_invalid_capacity(self):
         events = []
         
@@ -45,6 +49,8 @@ class TestAddEvent(unittest.TestCase):
         
         self.assertFalse(result)
         self.assertEqual(len(events), 0)
+
+
     def test_add_event_negative_capacity(self):
         events = []
 
@@ -60,6 +66,12 @@ class TestAddEvent(unittest.TestCase):
         self.assertFalse(result)
         self.assertEqual(len(events), 0)
 
+
+    def test_add_event_invalid_events_type(self):
+        with self.assertRaises(TypeError):
+            add_event("not a list")
+
+           
     
 
 
