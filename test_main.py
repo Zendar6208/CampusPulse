@@ -31,7 +31,22 @@ class TestAddEvent(unittest.TestCase):
 
         self.assertFalse(result)
         self.assertEqual(len(events), 0)
+    def test_add_event_invalid_capacity(self):
+        events = []
         
+        with patch("builtins.input", side_effect=[
+            "Hackathon",
+            "Technology",
+            "25-10-2026",
+            "VIT-AP",
+            "abc"
+        ]):
+            result = add_event(events)
+        
+        self.assertFalse(result)
+        self.assertEqual(len(events), 0)
+    
+
 
 
 
