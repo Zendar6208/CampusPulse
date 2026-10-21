@@ -17,6 +17,25 @@ class TestAddEvent(unittest.TestCase):
         self.assertTrue(result)
         self.assertEqual(len(events),1)
         self.assertEqual(events[0].name, "Campus Hackathon")
+    def test_add_event_empty_name(self):
+        events = []
+
+        with patch("builtins.input", side_effect=[
+            "",
+            "Technology",
+            "25-10-2026",
+            "VIT-AP",
+            "100"
+        ]):
+            result = add_event(events)
+
+        self.assertFalse(result)
+        self.assertEqual(len(events), 0)
+        
+
+
+
+
     
 
     
