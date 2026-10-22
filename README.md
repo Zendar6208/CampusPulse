@@ -24,7 +24,7 @@ The immediate objective is to build a functional, reliable, and maintainable fou
 
 Development is incremental, with each stage introducing new software engineering concepts while improving the existing application.
 
-The focus is on building working software rather than accumulating disconnected features
+The focus is on building working software rather than accumulating disconnected features.
 
 ## Current Features
 
