@@ -440,6 +440,30 @@ Separating business logic from user-interface code prevents duplicated operation
 **Key Learning:**
 
 Functions can communicate operation outcomes through return values. Separating successful and unsuccessful execution paths helps prevent unnecessary file operations and makes CLI behaviour easier to verify through automated tests.
+### Day 16 — Testing CLI Persistence with Mocking
+
+**Objective:** Verify that CampusPulse saves event data only after successful operations.
+
+**What I implemented:**
+
+* Introduced CLI-level persistence tests using `unittest.mock.patch`.
+* Mocked `load_events()` to provide controlled test data.
+* Mocked `input()` to simulate complete CLI interactions.
+* Mocked `save_events()` to verify persistence without modifying `events.json`.
+* Added tests covering:
+
+  * Successful event creation triggers saving exactly once.
+  * Invalid event creation does not trigger saving.
+  * Successful registration triggers saving exactly once.
+  * Failed registration does not trigger saving.
+  * Successful cancellation triggers saving exactly once.
+  * Failed cancellation does not trigger saving.
+* Added assertions to verify that registration counts change by exactly one.
+* Expanded the automated test suite to 42 tests.
+
+**Key Learning:**
+
+Mocking allows us to test how different parts of an application interact without depending on actual keyboard input or file operations. Testing both successful and failed operations helps prevent unnecessary persistence and catches bugs that isolated function tests might miss.
 
 ---
 
