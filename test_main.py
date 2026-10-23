@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch
-from main import add_event
+from main import add_event, main
 
 class TestAddEvent(unittest.TestCase):
 
@@ -71,7 +71,28 @@ class TestAddEvent(unittest.TestCase):
         with self.assertRaises(TypeError):
             add_event("not a list")
 
-           
+    def test_main_saves_after_successful_creation(self):
+        events = []
+
+        with patch("main.load_events", return_value=events), \
+            patch("builtins.input", side_effect=[
+                "3",
+                "Campus Hackathon",
+                "Technology",
+                "25-10-2026",
+                "VIT-AP",
+                "100",
+                "6"
+            ]), \
+            patch("main.save_events") as mock_save:
+
+            main()
+
+        mock_save.assert_called_once_with(events)
+        self.assertEqual(len(events), 1)
+
+    
+            
     
 
 
