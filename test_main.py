@@ -158,6 +158,31 @@ class TestAddEvent(unittest.TestCase):
         mock_save.assert_not_called()
         self.assertEqual(events[0].registered,100)
 
+        def test_main_saves_after_successful_cancellation(self):
+            events = [
+                    Event(
+                    "Campus Hackathon",
+                    "Technology",
+                    "25-10-2026",
+                    "VIT-AP",
+                    100,
+                    100
+                )
+            ]
+            with patch("main.load_events",return_value=events):
+                with patch("builtins.input", side_effect=[
+                "5",
+                "Campus Hackathon",
+                "6"
+            ]):
+                    with patch("main.save_events") as mock_save:
+                        main()
+           
+            mock_save.assert_called_once_with(events)
+            self.assertEqual(events[0].registered, 4)
+
+        
+        
     
 
 
