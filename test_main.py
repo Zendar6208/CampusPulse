@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import patch
 from main import add_event, main
+from event import Event
 
 class TestAddEvent(unittest.TestCase):
 
@@ -109,7 +110,31 @@ class TestAddEvent(unittest.TestCase):
 
         mock_save.assert_not_called()
         self.assertEqual(len(events), 0)
-    
+
+    def test_main_saves_after_successful_registration(self):
+        events = [
+            Event(
+                "Campus Hackathon",
+                "Technology",
+                "25-10-2026",
+                "VIT-AP",
+                100,
+                0
+            )
+        ]
+
+        with patch("main.load_events", return_value=events): 
+            with patch("builtins.input", side_effect=[
+                "4",
+                "Campus Hackathon",
+                "6"
+            ]):
+                with patch("main.save_events") as mock_save:
+                    main()
+
+        mock_save.assert_called_once_with(events)
+        self.assertEqual(events[0].registered, 1)
+
 
     
             
