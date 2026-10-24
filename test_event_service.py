@@ -153,4 +153,20 @@ def test_cancel_registration_for_event_zero_registrations(self):
             )
         self.assertEqual(len(self.events), original_count)
 
+    def test_create_event_duplicate_name_case_insensitive(self):
+        original_count=len(self.events)
+        with self.assertRaises(ValueError):
+            create_event(
+                self.events,
+                "hAcKaThOn 1",
+                "AI",
+                "04-01-2023",
+               "Location 4",
+               250,
+            )
+        self.assertEqual(len(self.events), original_count)
+
+    
+
+
 
