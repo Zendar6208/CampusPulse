@@ -140,6 +140,17 @@ def test_cancel_registration_for_event_zero_registrations(self):
         with self.assertRaises(TypeError):
             cancel_event_registration(self.events, 123)
 
-
+    def test_create_event_duplicate_name(self):
+        original_count = len(self.events)
+        with self.assertRaises(ValueError):
+            create_event(
+                self.events,
+                "Hackathon 1",
+                "AI",
+                "04-01-2023",
+                "Location 4",
+                250,
+            )
+        self.assertEqual(len(self.events), original_count)
 
 

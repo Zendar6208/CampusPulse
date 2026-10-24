@@ -16,6 +16,7 @@ def find_event_by_name(events, search_name):
             return event
 
     return None
+
 def create_event(events, name, category, date, location, capacity):
     if not isinstance(events, list):
         raise TypeError("events must be a list")
@@ -25,10 +26,18 @@ def create_event(events, name, category, date, location, capacity):
 
     if capacity < 0:
         raise ValueError("Event capacity cannot be negative.")
+    event = Event(name, category, date, location, capacity, 0)
+    name = name.strip()
+
+    if find_event_by_name(events, name) is not None:
+        raise ValueError("An event with this name already exists.")
 
     event = Event(name, category, date, location, capacity, 0)
     events.append(event)
+
     return event
+
+
 def register_for_event(events,event_name):
     if not isinstance(events,list):
         raise TypeError("events must be a list")
