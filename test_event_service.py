@@ -109,32 +109,29 @@ class TestEventService(unittest.TestCase):
         self.assertTrue(result)
         self.assertEqual(event.registered, original_registered - 1)
 
+    def test_cancel_registration_for_event_zero_registrations(self):
+        event = self.events[0]
+        event.registered = 0
 
-def test_cancel_registration_for_event_zero_registrations(self):
-    event = self.events[0]
-    event.registered = 0
+        event_name = event.name
 
-    event_name = event.name
+        result = cancel_event_registration(self.events, event_name)
 
-    result = cancel_event_registration(self.events, event_name)
-
-    self.assertFalse(result)
-    self.assertEqual(event.registered, 0)
-
+        self.assertFalse(result)
+        self.assertEqual(event.registered, 0)
 
     def test_cancel_registration_for_event_not_found(self):
         event_name = "Nonexistent Event"
         original_counts = [event.registered for event in self.events]
 
         result = cancel_event_registration(self.events, event_name)
-                
+
         self.assertFalse(result)
         self.assertEqual([event.registered for event in self.events], original_counts)
 
     def test_cancel_registration_invalid_events_type(self):
         with self.assertRaises(TypeError):
             cancel_event_registration("not a list", "Hackathon 1")
-
 
     def test_cancel_registration_invalid_event_name_type(self):
         with self.assertRaises(TypeError):
@@ -154,15 +151,15 @@ def test_cancel_registration_for_event_zero_registrations(self):
         self.assertEqual(len(self.events), original_count)
 
     def test_create_event_duplicate_name_case_insensitive(self):
-        original_count=len(self.events)
+        original_count = len(self.events)
         with self.assertRaises(ValueError):
             create_event(
                 self.events,
                 "hAcKaThOn 1",
                 "AI",
                 "04-01-2023",
-               "Location 4",
-               250,
+                "Location 4",
+                250,
             )
         self.assertEqual(len(self.events), original_count)
 
@@ -179,6 +176,19 @@ def test_cancel_registration_for_event_zero_registrations(self):
             )
         self.assertEqual(len(self.events), original_count)
 
+    def test_create_event_strips_name_whitespace(self):
+        new_event = create_event(
+            self.events,
+            "  Hackathon 8  ",
+            "AI",
+            "08-01-2023",
+            "Location 8",
+            250,
+        )
+        self.assertEqual(new_event.name, "Hackathon 8")
+        self.assertIs(new_event, self.events[-1])
+
+        
 
 
 
