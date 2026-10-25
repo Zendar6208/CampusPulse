@@ -47,6 +47,7 @@ def register_for_event(events,event_name):
     if event is None:
         return False
     return event.register()
+
 def cancel_event_registration(events,event_name):
     if not isinstance(events,list):
         raise TypeError("events must be a list")
@@ -58,6 +59,25 @@ def cancel_event_registration(events,event_name):
         return False
     return event.cancel_registration()
 
+def update_event(events, event_name, new_location):
+    if not isinstance(events, list):
+        raise TypeError("events must be a list")
+    if not isinstance(event_name, str):
+        raise TypeError("event_name must be a string")
+    if not isinstance(new_location, str):
+        raise TypeError("new_location must be a string")
 
+    event = find_event_by_name(events, event_name)
+
+    if event is None:
+        return False
+
+    new_location = new_location.strip()
+
+    if not new_location:
+        raise ValueError("Event location cannot be empty.")
+
+    event.location = new_location
+    return True
 
     

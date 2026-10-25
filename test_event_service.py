@@ -1,6 +1,6 @@
 import unittest
 from event import Event
-from event_service import find_event_by_name, create_event, register_for_event, cancel_event_registration
+from event_service import find_event_by_name, create_event, register_for_event, cancel_event_registration, update_event
 
 class TestEventService(unittest.TestCase):
     def setUp(self):
@@ -188,7 +188,38 @@ class TestEventService(unittest.TestCase):
         self.assertEqual(new_event.name, "Hackathon 8")
         self.assertIs(new_event, self.events[-1])
 
-        
+    def test_update_event_location_success(self):
+        event = self.events[0]
+        original_registered = event.registered
 
+        result = update_event(
+            self.events,
+            "Hackathon 1",
+            "  Main Auditorium  ",
+        )
 
+        self.assertTrue(result)
+        self.assertEqual(event.location, "Main Auditorium")
+        self.assertEqual(event.registered, original_registered)
 
+    def test_update_event_not_found(self):
+        result = update_event(
+            self.events,
+            "Nonexistent Hackathon",
+            "Main Auditorium"
+        )
+
+        self.assertFalse(result)
+
+    def test_update_event_invalid_location_type(self):
+        with self.assertRaises(TypeError):
+            update_event(self.events, "Hackathon 1", 123)
+
+    def test_update_event_empty_location(self):
+        event = self.events[0]
+        original_location = event.location
+
+        with self.assertRaises(ValueError):
+            update_event(self.events, "Hackathon 1", "   ")
+
+        self.assertEqual(event.location, original_location)    
