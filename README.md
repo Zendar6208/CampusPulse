@@ -476,6 +476,18 @@ Mocking allows us to test how different parts of an application interact without
 
 **Key learning:** Input normalization, data integrity, and testing persistence behaviour across application layers.
 
+### Day 18 — Event Location Editing
+
+* Implemented `update_event()` in the service layer to modify an existing event's location.
+* Added input validation to reject invalid types and empty or whitespace-only locations.
+* Normalized location input using `.strip()`.
+* Preserved existing event registrations when updating the location.
+* Integrated event editing into the CLI through menu option 7.
+* Ensured that changes are saved only after a successful update.
+* Added service-layer and mocked CLI tests covering successful updates, missing events, invalid inputs, and persistence behaviour.
+
+**Key learning:** Updating existing objects safely, separating business logic from CLI interaction, and preventing unsuccessful operations from triggering persistence.
+
 ---
 
 ## Contributing
