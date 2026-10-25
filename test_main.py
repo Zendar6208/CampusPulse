@@ -203,19 +203,32 @@ class TestAddEvent(unittest.TestCase):
 
         mock_save.assert_not_called()
         self.assertEqual(events[0].registered, 0)
-        
-        
-    
 
+    def test_main_does_not_save_duplicate_event(self):
+        events = [
+            Event(
+                "Campus Hackathon",
+                "Technology",
+                "25-10-2026",
+                "VIT-AP",
+                100,
+                0
+            )
+        ]
 
-    
-            
-    
+        with patch("main.load_events", return_value=events), \
+            patch("builtins.input", side_effect=[
+                "3",
+                "Campus Hackathon",
+                "Technology",
+                "25-10-2026",
+                "VIT-AP",
+                "100",
+                "6"
+            ]), \
+            patch("main.save_events") as mock_save:
 
+            main()
 
-
-
-
-    
-
-    
+        mock_save.assert_not_called()
+        self.assertEqual(len(events), 1)
