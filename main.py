@@ -1,6 +1,12 @@
 from storage import load_events, save_events
 from event import Event
-from event_service import find_event_by_name, create_event, register_for_event, cancel_event_registration
+from event_service import (
+    find_event_by_name,
+    create_event,
+    register_for_event,
+    cancel_event_registration,
+    update_event,
+)
 
 def display_events(events):
     if not isinstance(events, list):
@@ -93,8 +99,9 @@ def main():
         print("4. Register for Event")
         print("5. Cancel Registration")
         print("6. Exit")
+        print("7. Update Event Location")
 
-        choice = input("Enter your choice (1-6): ").strip()
+        choice = input("Enter your choice (1-7): ").strip()
 
         if choice == '1':
             display_events(events)
@@ -143,6 +150,23 @@ def main():
         elif choice == '6':
             print("Exiting the program.")
             break
+
+        elif choice == "7":
+            event_name = input("Enter event name: ").strip()
+            new_location = input("Enter new location: ").strip()
+
+            try:
+                updated = update_event(events, event_name, new_location)
+
+                if updated:
+                    print("Event location updated successfully!")
+                    save_events(events)
+                else:
+                    print("Event not found.")
+
+            except (TypeError, ValueError) as error:
+                print(error)
+
         else:
             print("Invalid choice. Please try again.")
 

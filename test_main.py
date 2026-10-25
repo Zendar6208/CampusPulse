@@ -232,3 +232,81 @@ class TestAddEvent(unittest.TestCase):
 
         mock_save.assert_not_called()
         self.assertEqual(len(events), 1)
+
+    def test_main_saves_successful_location_update(self):
+        events = [
+            Event(
+                "Campus Hackathon",
+                "Technology",
+                "25-10-2026",
+                "VIT-AP",
+                100,
+                0
+            )
+        ]
+
+        with patch("main.load_events", return_value=events), \
+             patch("builtins.input", side_effect=[
+                 "7",
+                 "Campus Hackathon",
+                 "  Main Auditorium  ",
+                 "6"
+             ]), \
+             patch("main.save_events") as mock_save:
+
+            main()
+
+        self.assertEqual(events[0].location, "Main Auditorium")
+        mock_save.assert_called_once_with(events)
+
+    def test_main_does_not_save_location_update_when_event_missing(self):
+        events = [
+            Event(
+                "Campus Hackathon",
+                "Technology",
+                "25-10-2026",
+                "VIT-AP",
+                100,
+                0
+            )
+        ]
+
+        with patch("main.load_events", return_value=events), \
+             patch("builtins.input", side_effect=[
+                 "7",
+                 "Unknown Hackathon",
+                 "Main Auditorium",
+                 "6"
+             ]), \
+             patch("main.save_events") as mock_save:
+
+            main()
+
+        self.assertEqual(events[0].location, "VIT-AP")
+        mock_save.assert_not_called()
+        
+    def test_main_does_not_save_empty_location_update(self):
+        events = [
+            Event(
+                "Campus Hackathon",
+                "Technology",
+                "25-10-2026",
+                "VIT-AP",
+                100,
+                0
+            )
+        ]
+
+        with patch("main.load_events", return_value=events), \
+             patch("builtins.input", side_effect=[
+                 "7",
+                 "Campus Hackathon",
+                 " ",
+                 "6"
+             ]), \
+             patch("main.save_events") as mock_save:
+
+            main()
+
+        self.assertEqual(events[0].location, "VIT-AP")
+        mock_save.assert_not_called()
