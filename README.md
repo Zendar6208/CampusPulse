@@ -465,6 +465,17 @@ Functions can communicate operation outcomes through return values. Separating s
 
 Mocking allows us to test how different parts of an application interact without depending on actual keyboard input or file operations. Testing both successful and failed operations helps prevent unnecessary persistence and catches bugs that isolated function tests might miss.
 
+### Day 17 — Duplicate Event Prevention
+
+* Implemented duplicate event-name detection in the service layer.
+* Used case-insensitive matching to prevent duplicates with different capitalization.
+* Normalized event names by removing leading and trailing whitespace.
+* Added unit tests for exact duplicates, case-insensitive duplicates, and whitespace-based duplicates.
+* Verified that newly created event names are stored without surrounding whitespace.
+* Added a mocked CLI test ensuring duplicate event attempts do not trigger `save_events()`.
+
+**Key learning:** Input normalization, data integrity, and testing persistence behaviour across application layers.
+
 ---
 
 ## Contributing
