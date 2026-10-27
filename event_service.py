@@ -85,7 +85,7 @@ def update_event_capacity(events, event_name, new_capacity):
         raise TypeError("events must be a list")
     if not isinstance(event_name, str):
         raise TypeError("event_name must be a string")
-    if not isinstance(new_capacity, int):
+    if type(new_capacity) is not int:
         raise TypeError("new_capacity must be an integer")
     if new_capacity < 0:
         raise ValueError("Event capacity cannot be negative.")

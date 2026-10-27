@@ -272,3 +272,14 @@ class TestEventService(unittest.TestCase):
 
         self.assertEqual(event.capacity, original_capacity)
         self.assertEqual(event.registered, 25)
+
+    def test_update_capacity_invalid_type(self):
+        event = self.events[0]
+        event.registered = 25
+        original_capacity = event.capacity
+
+        with self.assertRaises(TypeError):
+            update_event_capacity(self.events, "Hackathon 1", "25")
+
+        self.assertEqual(event.capacity, original_capacity)
+        self.assertEqual(event.registered, 25)
