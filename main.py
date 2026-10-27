@@ -1,12 +1,6 @@
 from storage import load_events, save_events
 from event import Event
-from event_service import (
-    find_event_by_name,
-    create_event,
-    register_for_event,
-    cancel_event_registration,
-    update_event,
-)
+import event_service
 
 def display_events(events):
     if not isinstance(events, list):
@@ -36,7 +30,7 @@ def search_event(events):
         print("Event name cannot be empty.")
         return None
 
-    event = find_event_by_name(events, search_name)
+    event = event_service.find_event_by_name(events, search_name)
 
     if event:
         print("Event Found!")
@@ -70,7 +64,7 @@ def add_event(events):
         return False
 
     try:
-        new_event = create_event(
+        new_event = event_service.create_event(
             events,
             name,
             category,
@@ -100,8 +94,9 @@ def main():
         print("5. Cancel Registration")
         print("6. Exit")
         print("7. Update Event Location")
+        print("8. Update Event Capacity")
 
-        choice = input("Enter your choice (1-7): ").strip()
+        choice = input("Enter your choice (1-8): ").strip()
 
         if choice == '1':
             display_events(events)
@@ -116,8 +111,8 @@ def main():
         elif choice == '4':
             search_name = input("Enter event name to register: ").strip()
 
-            event = find_event_by_name(events, search_name)
-            result = register_for_event(events, search_name)
+            event = event_service.find_event_by_name(events, search_name)
+            result = event_service.register_for_event(events, search_name)
 
             if event:
                 event.display()
@@ -133,13 +128,13 @@ def main():
         elif choice == '5':
             search_name = input("Enter event name to cancel registration: ").strip()
 
-            event = find_event_by_name(events, search_name)
+            event = event_service.find_event_by_name(events, search_name)
 
             if event is None:
                 print("Event not found.")
             else:
                 event.display()
-                result = cancel_event_registration(events, search_name)
+                result = event_service.cancel_event_registration(events, search_name)
 
                 if result:
                     print("Registration cancelled successfully!")
@@ -156,7 +151,7 @@ def main():
             new_location = input("Enter new location: ").strip()
 
             try:
-                updated = update_event(events, event_name, new_location)
+                updated = event_service.update_event(events, event_name, new_location)
 
                 if updated:
                     print("Event location updated successfully!")
@@ -164,6 +159,21 @@ def main():
                 else:
                     print("Event not found.")
 
+            except (TypeError, ValueError) as error:
+                print(error)
+
+        elif choice == "8":
+            event_name = input("Enter event name: ").strip()
+            capacity_input = input("Enter new capacity: ").strip()
+            try:
+                new_capacity = int(capacity_input)
+                updated = event_service.update_event_capacity(events, event_name, new_capacity)
+
+                if updated:
+                    print("Event capacity updated successfully!")
+                    save_events(events)
+                else:
+                    print("Event not found.")
             except (TypeError, ValueError) as error:
                 print(error)
 
