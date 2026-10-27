@@ -488,6 +488,19 @@ Mocking allows us to test how different parts of an application interact without
 
 **Key learning:** Updating existing objects safely, separating business logic from CLI interaction, and preventing unsuccessful operations from triggering persistence.
 
+### Day 19 — Event Capacity Editing
+
+* Implemented `update_event_capacity()` in the service layer.
+* Added validation for invalid types, negative capacities, and capacities below existing registrations.
+* Prevented Boolean values from being accepted as integers.
+* Preserved existing registrations during capacity updates.
+* Added unit tests covering successful updates, boundary conditions, invalid inputs, and missing events.
+* Integrated capacity editing into the CLI through menu option 8.
+* Ensured that `save_events()` runs only after a successful update.
+* Added mocked CLI tests covering successful persistence, rejected capacity reductions, and nonnumeric input.
+
+**Key learning:** Enforcing business rules before modifying data, testing boundary conditions, and maintaining data integrity across the service and CLI layers.
+
 ---
 
 ## Contributing
