@@ -363,4 +363,33 @@ class TestAddEvent(unittest.TestCase):
         self.assertEqual(events[0].capacity, 100)
         self.assertEqual(events[0].registered, 25)
         mock_save.assert_not_called()
-            
+
+    def test_main_does_not_save_invalid_capacity_input(self):
+        events = [
+            Event(
+                "Campus Hackathon",
+                "Technology",
+                "25-10-2026",
+                "VIT-AP",
+                100,
+                25
+
+            )
+        ]
+        with patch("main.load_events", return_value=events), \
+             patch("builtins.input", side_effect=[
+                 "8",
+                 "Campus Hackathon",
+                 "invalid",
+                 "6"
+             ]), \
+             patch("main.save_events") as mock_save:
+
+            main()
+
+        self.assertEqual(events[0].capacity, 100)
+        self.assertEqual(events[0].registered, 25)
+        mock_save.assert_not_called()
+
+
+
