@@ -1,6 +1,6 @@
 import unittest
 from event import Event
-from event_service import find_event_by_name, create_event, register_for_event, cancel_event_registration, update_event
+from event_service import find_event_by_name, create_event, register_for_event, cancel_event_registration, update_event, update_event_capacity
 
 class TestEventService(unittest.TestCase):
     def setUp(self):
@@ -223,3 +223,41 @@ class TestEventService(unittest.TestCase):
             update_event(self.events, "Hackathon 1", "   ")
 
         self.assertEqual(event.location, original_location)    
+
+    def test_update_event_capacity_success(self):
+        event = self.events[0]
+
+        event.registered = 25
+        original_registered = event.registered
+
+        result = update_event_capacity(
+            self.events,
+            "Hackathon 1",
+            150
+        )
+
+        self.assertTrue(result)
+        self.assertEqual(event.capacity,150)
+        self.assertEqual(event.registered,original_registered)
+
+    def test_update_capacity_equal_to_registrations(self):
+        event = self.events[0]
+        event.registered = 25
+
+        result = update_event_capacity(self.events, "Hackathon 1", 25)
+
+        self.assertTrue(result)
+        self.assertEqual(event.capacity, 25)
+        self.assertEqual(event.registered, 25)
+        self.assertTrue(event.is_full())
+
+    def test_update_capacity_below_registrations(self):
+        event = self.events[0]
+        event.registered = 25
+        original_capacity = event.capacity
+
+        with self.assertRaises(ValueError):
+            update_event_capacity(self.events, "Hackathon 1", 24)
+
+        self.assertEqual(event.capacity, original_capacity)
+        self.assertEqual(event.registered, 25)

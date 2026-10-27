@@ -80,4 +80,24 @@ def update_event(events, event_name, new_location):
     event.location = new_location
     return True
 
+def update_event_capacity(events, event_name, new_capacity):
+    if not isinstance(events, list):
+        raise TypeError("events must be a list")
+    if not isinstance(event_name, str):
+        raise TypeError("event_name must be a string")
+    if not isinstance(new_capacity, int):
+        raise TypeError("new_capacity must be an integer")
+    if new_capacity < 0:
+        raise ValueError("Event capacity cannot be negative.")
+
+    event = find_event_by_name(events, event_name)
+    if event is None:
+        return False
+
+    if new_capacity < event.registered:
+        raise ValueError("Capacity cannot be below existing registrations.")
+
+    event.capacity = new_capacity
+    return True
+    
     
