@@ -283,3 +283,15 @@ class TestEventService(unittest.TestCase):
 
         self.assertEqual(event.capacity, original_capacity)
         self.assertEqual(event.registered, 25)
+
+    def test_update_capacity_event_not_found(self):
+        original_count = len(self.events)
+
+        result = update_event_capacity(
+            self.events,
+            "Unknown Hackathon",
+            150
+        )
+
+        self.assertFalse(result)
+        self.assertEqual(len(self.events), original_count)
