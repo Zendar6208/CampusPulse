@@ -12,7 +12,7 @@ The long-term vision is to build a trusted campus event network where students c
 
 ## Why CampusPulse?
 
-College events and opportunities are often scattered across Instagram, WhatsApp groups, Telegram channels, college websites, and individual registration.
+College events and opportunities are often scattered across Instagram, WhatsApp groups, Telegram channels, college websites, and individual registration platforms.
 
 This makes discovering relevant opportunities unnecessarily difficult, especially for students interested in participating in events outside their own institutions.
 
