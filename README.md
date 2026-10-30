@@ -501,6 +501,19 @@ Mocking allows us to test how different parts of an application interact without
 
 **Key learning:** Enforcing business rules before modifying data, testing boundary conditions, and maintaining data integrity across the service and CLI layers.
 
+### Day 20 — Safe Event Deletion
+
+* Implemented `delete_event()` in the service layer.
+* Added safeguards preventing deletion of events with active registrations.
+* Added input validation and graceful handling of nonexistent events.
+* Wrote unit tests covering successful deletion, active registrations, missing events, and invalid argument types.
+* Integrated event deletion into the CLI.
+* Reorganised the menu to group editing and deletion operations together.
+* Updated existing CLI tests to reflect the new menu numbering.
+* Ensured that event deletion triggers persistence only when successful.
+
+**Key learning:** Safely removing data, enforcing business rules, and maintaining test compatibility when changing an application's interface.
+
 ---
 
 ## Contributing
