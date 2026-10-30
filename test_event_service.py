@@ -303,6 +303,19 @@ class TestEventService(unittest.TestCase):
 
         self.assertTrue(result)
         self.assertEqual(len(self.events), original_count - 1)
-        self.assertIsNone(
-            find_event_by_name(self.events, "Hackathon 1")
+        self.assertIsNone(find_event_by_name(self.events, "Hackathon 1") )
+
+    def test_delete_event_with_active_registrations(self):
+        event = self.events[0]
+        event.registered = 25
+        original_count = len(self.events)
+        with self.assertRaises(ValueError):
+            delete_event(self.events, "Hackathon 1")
+        self.assertEqual(len(self.events), original_count)
+        self.assertIs(
+            find_event_by_name(self.events, "Hackathon 1"),
+            event
         )
+        self.assertEqual(event.registered, 25)
+
+        
