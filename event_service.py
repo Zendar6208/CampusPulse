@@ -100,4 +100,19 @@ def update_event_capacity(events, event_name, new_capacity):
     event.capacity = new_capacity
     return True
     
-    
+def delete_event(events, event_name):
+    if not isinstance(events, list):
+        raise TypeError("events must be a list")
+    if not isinstance(event_name, str):
+        raise TypeError("event_name must be a string")
+
+    event = find_event_by_name(events, event_name)
+    if event is None:
+        return False
+    if event.registered > 0:
+       raise ValueError("Cannot delete an event with active registrations.")
+
+    events.remove(event)
+    return True
+        
+
