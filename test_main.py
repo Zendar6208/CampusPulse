@@ -83,7 +83,7 @@ class TestAddEvent(unittest.TestCase):
                 "25-10-2026",
                 "VIT-AP",
                 "100",
-                "6"
+                "9"
             ]), \
             patch("main.save_events") as mock_save:
 
@@ -103,7 +103,7 @@ class TestAddEvent(unittest.TestCase):
                 "25-10-2026",
                 "VIT-AP",
                 "abc",
-                "6"
+                "9"
             ]):
                 with patch("main.save_events") as mock_save:
                     main()
@@ -127,7 +127,7 @@ class TestAddEvent(unittest.TestCase):
             with patch("builtins.input", side_effect=[
                 "4",
                 "Campus Hackathon",
-                "6"
+                "9"
             ]):
                 with patch("main.save_events") as mock_save:
                     main()
@@ -150,7 +150,7 @@ class TestAddEvent(unittest.TestCase):
             with patch("builtins.input", side_effect=[
             "4",
             "Campus Hackathon",
-            "6"
+            "9"
         ]):
                 with patch("main.save_events") as mock_save:
                     main()
@@ -173,7 +173,7 @@ class TestAddEvent(unittest.TestCase):
             with patch("builtins.input", side_effect=[
                 "5",
                 "Campus Hackathon",
-                "6"
+                "9"
             ]):
                 with patch("main.save_events") as mock_save:
                     main()
@@ -196,7 +196,7 @@ class TestAddEvent(unittest.TestCase):
             with patch("builtins.input", side_effect=[
                 "5",
                 "Campus Hackathon",
-                "6"
+                "9"
             ]):
                 with patch("main.save_events") as mock_save:
                     main()
@@ -224,7 +224,7 @@ class TestAddEvent(unittest.TestCase):
                 "25-10-2026",
                 "VIT-AP",
                 "100",
-                "6"
+                "9"
             ]), \
             patch("main.save_events") as mock_save:
 
@@ -247,10 +247,10 @@ class TestAddEvent(unittest.TestCase):
 
         with patch("main.load_events", return_value=events), \
              patch("builtins.input", side_effect=[
-                 "7",
+                 "6",
                  "Campus Hackathon",
                  "  Main Auditorium  ",
-                 "6"
+                 "9"
              ]), \
              patch("main.save_events") as mock_save:
 
@@ -273,10 +273,10 @@ class TestAddEvent(unittest.TestCase):
 
         with patch("main.load_events", return_value=events), \
              patch("builtins.input", side_effect=[
-                 "7",
+                 "6",
                  "Unknown Hackathon",
                  "Main Auditorium",
-                 "6"
+                 "9"
              ]), \
              patch("main.save_events") as mock_save:
 
@@ -299,10 +299,10 @@ class TestAddEvent(unittest.TestCase):
 
         with patch("main.load_events", return_value=events), \
              patch("builtins.input", side_effect=[
-                 "7",
+                 "6",
                  "Campus Hackathon",
                  " ",
-                 "6"
+                 "9"
              ]), \
              patch("main.save_events") as mock_save:
 
@@ -325,10 +325,10 @@ class TestAddEvent(unittest.TestCase):
 
         with patch("main.load_events", return_value=events), \
             patch("builtins.input", side_effect=[
-                "8",
+                "7",
                 "Campus Hackathon",
                 "150",
-                "6"
+                "9"
             ]), \
             patch("main.save_events") as mock_save:
 
@@ -351,10 +351,10 @@ class TestAddEvent(unittest.TestCase):
         ]
         with patch("main.load_events", return_value=events), \
              patch("builtins.input", side_effect=[
-                 "8",
+                 "7",
                  "Campus Hackathon",
                  "20",
-                 "6"
+                 "9"
              ]), \
              patch("main.save_events") as mock_save:
 
@@ -378,10 +378,10 @@ class TestAddEvent(unittest.TestCase):
         ]
         with patch("main.load_events", return_value=events), \
              patch("builtins.input", side_effect=[
-                 "8",
+                 "7",
                  "Campus Hackathon",
                  "invalid",
-                 "6"
+                 "9"
              ]), \
              patch("main.save_events") as mock_save:
 

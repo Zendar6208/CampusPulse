@@ -92,11 +92,12 @@ def main():
         print("3. Add Event")
         print("4. Register for Event")
         print("5. Cancel Registration")
-        print("6. Exit")
-        print("7. Update Event Location")
-        print("8. Update Event Capacity")
+        print("6. Update Event Location")
+        print("7. Update Event Capacity")
+        print("8. Delete Event")
+        print("9. Exit")
 
-        choice = input("Enter your choice (1-8): ").strip()
+        choice = input("Enter your choice (1-9): ").strip()
 
         if choice == '1':
             display_events(events)
@@ -142,11 +143,8 @@ def main():
                 else:
                     print("Cancellation failed. No registrations found.")
 
-        elif choice == '6':
-            print("Exiting the program.")
-            break
 
-        elif choice == "7":
+        elif choice == "6":
             event_name = input("Enter event name: ").strip()
             new_location = input("Enter new location: ").strip()
 
@@ -162,7 +160,7 @@ def main():
             except (TypeError, ValueError) as error:
                 print(error)
 
-        elif choice == "8":
+        elif choice == "7":
             event_name = input("Enter event name: ").strip()
             capacity_input = input("Enter new capacity: ").strip()
             try:
@@ -176,6 +174,25 @@ def main():
                     print("Event not found.")
             except (TypeError, ValueError) as error:
                 print(error)
+
+        elif choice == "8":
+            event_name = input("Enter event name to delete: ").strip()
+
+            try:
+                deleted = event_service.delete_event(events, event_name)
+
+                if deleted:
+                    print("Event deleted successfully!")
+                    save_events(events)
+                else:
+                    print("Event not found.")
+
+            except (TypeError, ValueError) as error:
+                print(error)
+        
+        elif choice == '9':
+            print("Exiting the program.")
+            break
 
         else:
             print("Invalid choice. Please try again.")
