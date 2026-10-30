@@ -324,3 +324,10 @@ class TestEventService(unittest.TestCase):
         self.assertFalse(result)
         self.assertEqual(len(self.events), original_count)     
         
+    def test_delete_event_invalid_events_type(self):
+        with self.assertRaises(TypeError):
+            delete_event("not a list", "Hackathon 1")
+
+    def test_delete_event_invalid_name_type(self):
+        with self.assertRaises(TypeError):
+            delete_event(self.events, 123)
