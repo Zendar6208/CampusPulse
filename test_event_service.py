@@ -318,4 +318,9 @@ class TestEventService(unittest.TestCase):
         )
         self.assertEqual(event.registered, 25)
 
+    def test_delete_event_not_found(self):
+        original_count= len(self.events)
+        result = delete_event(self.events, "Unknown Hackathon")  
+        self.assertFalse(result)
+        self.assertEqual(len(self.events), original_count)     
         
