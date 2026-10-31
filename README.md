@@ -20,7 +20,7 @@ CampusPulse aims to solve this by building a centralized, accessible platform fo
 
 ## Current Goal
 
-The immediate objective is to build a functional, reliable, and maintainable foundation for CampusPulse.
+The immediate objective is to build a functional, reliable, and maintainable foundation for Campus Pulse.
 
 Development is incremental, with each stage introducing new software engineering concepts while improving the existing application.
 
