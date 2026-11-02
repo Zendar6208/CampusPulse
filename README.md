@@ -16,6 +16,7 @@ College events and opportunities are often scattered across Instagram, WhatsApp 
 
 This makes discovering relevant opportunities unnecessarily difficult, especially for students interested in participating in events outside their own institutions.
 
+CampusPulse aims to solve this by building a centralized, accessible platform for campus opportunities.
 
 ## Current Goal
 
