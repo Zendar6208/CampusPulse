@@ -6,7 +6,7 @@ CampusPulse is an open-source project designed to help college students discover
 
 The long-term vision is to build a trusted campus event network where students can discover opportunities across colleges, while verified student organizations and organizers can publish and manage their events.
 
-> **Current Status:** Active Development
+> **Current Status:** Active Development — Python CLI Prototype
 
 ---
 
