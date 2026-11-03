@@ -416,4 +416,29 @@ class TestAddEvent(unittest.TestCase):
         self.assertEqual(len(events), 0)
         mock_save.assert_called_once_with(events)
 
+    def test_main_does_not_save_event_with_active_registrations(self):
+        events = [
+            Event(
+                "Campus Hackathon",
+                "Technology",
+                "25-10-2026",
+                "VIT-AP",
+                100,
+                25
+            )
+        ]
+
+        with patch("main.load_events", return_value=events):
+            with patch("builtins.input", side_effect=[
+                "8",
+                "Campus Hackathon",
+                "9"
+            ]):
+                with patch("main.save_events") as mock_save:
+                    main()
+
+        self.assertEqual(len(events), 1)
+        self.assertEqual(events[0].registered, 25)
+        mock_save.assert_not_called()
+
 
