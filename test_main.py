@@ -441,4 +441,30 @@ class TestAddEvent(unittest.TestCase):
         self.assertEqual(events[0].registered, 25)
         mock_save.assert_not_called()
 
+    def test_main_does_not_save_when_deleting_nonexistent_event(self):
+        events = [
+            Event(
+                "Campus Hackathon",
+                "Technology",
+                "25-10-2026",
+                "VIT-AP",
+                100,
+                0
+            )
+        ]
 
+        with patch("main.load_events", return_value=events), \
+             patch("builtins.input", side_effect=[
+                 "8",
+                 "Nonexistent Event",
+                 "9"
+             ]), \
+             patch("main.save_events") as mock_save:
+
+            main()
+
+        self.assertEqual(len(events), 1)
+        self.assertEqual(events[0].name, "Campus Hackathon")
+        mock_save.assert_not_called()
+
+    
