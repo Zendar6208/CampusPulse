@@ -1,6 +1,6 @@
 import unittest
 from event import Event
-from event_service import find_event_by_name, create_event, register_for_event, cancel_event_registration, update_event, update_event_capacity,delete_event
+from event_service import filter_events_by_category, find_event_by_name, create_event, register_for_event, cancel_event_registration, update_event, update_event_capacity,delete_event
 
 class TestEventService(unittest.TestCase):
     def setUp(self):
@@ -331,3 +331,22 @@ class TestEventService(unittest.TestCase):
     def test_delete_event_invalid_name_type(self):
         with self.assertRaises(TypeError):
             delete_event(self.events, 123)
+
+    def test_filter_events_by_category(self):
+        events = []
+
+        create_event(events, "Campus Hackathon", "Technology", "04-01-2023", "Location 4", 250)
+        create_event(events, "Music Night", "Entertainment", "05-01-2023", "Location 5", 150)
+        create_event(events, "Coding Bootcamp", "Technology", "06-01-2023", "Location 6", 200)
+
+        filtered_events = filter_events_by_category(events, "Technology")
+
+        self.assertEqual(len(filtered_events), 2)
+        self.assertEqual(
+            [event.name for event in filtered_events],
+            ["Campus Hackathon", "Coding Bootcamp"],
+        )
+        self.assertTrue(
+            all(event.category == "Technology" for event in filtered_events)
+        )
+            

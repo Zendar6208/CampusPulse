@@ -114,5 +114,19 @@ def delete_event(events, event_name):
 
     events.remove(event)
     return True
-        
+
+def filter_events_by_category(events, category):
+    
+    if not isinstance(events, list):
+        raise TypeError("events must be a list")
+    if not isinstance(category, str):
+        raise TypeError("category must be a string")
+
+    category = category.strip()
+
+    if not category:
+        return []
+
+    filtered_events = [ev for ev in events if ev.category.casefold() == category.casefold()]
+    return filtered_events
 
