@@ -349,4 +349,22 @@ class TestEventService(unittest.TestCase):
         self.assertTrue(
             all(event.category == "Technology" for event in filtered_events)
         )
-            
+
+    def test_filter_events_by_category_case_insensitive(self):
+        events = []
+
+        create_event(events, "Campus Hackathon", "Technology", "04-01-2023", "Location 4", 250)
+        create_event(events, "Music Night", "Entertainment", "05-01-2023", "Location 5", 150)
+        create_event(events, "Coding Bootcamp", "Technology", "06-01-2023", "Location 6", 200)
+
+        filtered_events = filter_events_by_category(events, "technology")
+
+        self.assertEqual(len(filtered_events), 2)
+        self.assertEqual(
+            [event.name for event in filtered_events],
+            ["Campus Hackathon", "Coding Bootcamp"],
+        )
+        self.assertTrue(
+            all(event.category == "Technology" for event in filtered_events)
+        )
+    
