@@ -384,3 +384,13 @@ class TestEventService(unittest.TestCase):
         self.assertTrue(
             all(event.category == "Technology" for event in filtered_events)
         )
+    def test_filter_events_by_category_no_matches(self):
+        events = []
+
+        create_event(events, "Campus Hackathon", "Technology", "04-01-2023", "Location 4", 250)
+        create_event(events, "Music Night", "Entertainment", "05-01-2023", "Location 5", 150)
+        create_event(events, "Coding Bootcamp", "Technology", "06-01-2023", "Location 6", 200)
+
+        filtered_events = filter_events_by_category(events, "Sports")
+
+        self.assertEqual(filtered_events, [])
