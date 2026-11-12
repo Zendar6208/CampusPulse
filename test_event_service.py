@@ -406,3 +406,14 @@ class TestEventService(unittest.TestCase):
         filtered_events = filter_events_by_category(events, "Technology")
         self.assertEqual(len(filtered_events), 2)
         self.assertEqual(events, original_events_copy)
+
+    def test_filter_events_by_category_invalid_events_type(self):
+        with self.assertRaises(TypeError):
+            filter_events_by_category("not a list", "Technology")
+
+    def test_filter_events_by_category_invalid_category_type(self):
+        events = []
+        create_event(events, "Campus Hackathon", "Technology", "04-01-2023", "Location 4", 250)
+        with self.assertRaises(TypeError):
+            filter_events_by_category(events, 123)
+        
