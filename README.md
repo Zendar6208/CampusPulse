@@ -512,6 +512,18 @@ Mocking allows us to test how different parts of an application interact without
 * Updated existing CLI tests to reflect the new menu numbering.
 * Ensured that event deletion triggers persistence only when successful.
 
+### Day 21 — Category Filtering
+
+- Implemented `filter_events_by_category()` in `event_service.py`.
+- Added case-insensitive category matching.
+- Added whitespace handling for category searches.
+- Added validation for invalid input types.
+- Ensured filtering does not modify the original events list.
+- Integrated category filtering into the CLI as **Option 9**.
+- Added unit tests covering successful filtering, case-insensitive matching, whitespace handling, empty results, invalid inputs, and original-list preservation.
+- Added CLI tests to verify that only matching events are displayed.
+
+
 **Key learning:** Safely removing data, enforcing business rules, and maintaining test compatibility when changing an application's interface.
 
 ---
