@@ -95,9 +95,10 @@ def main():
         print("6. Update Event Location")
         print("7. Update Event Capacity")
         print("8. Delete Event")
-        print("9. Exit")
+        print("9. Filter Events by Category")
+        print("10. Exit")
 
-        choice = input("Enter your choice (1-9): ").strip()
+        choice = input("Enter your choice (1-10): ").strip()
 
         if choice == '1':
             display_events(events)
@@ -191,6 +192,16 @@ def main():
                 print(error)
         
         elif choice == '9':
+            category = input("Enter category to filter by: ").strip()
+            filtered_events = event_service.filter_events_by_category(events, category)
+            if filtered_events:
+                print(f"Events in category '{category}':")
+                for event in filtered_events:
+                    event.display()
+            else:
+                print(f"No events found in category '{category}'.")
+
+        elif choice == '10':
             print("Exiting the program.")
             break
 

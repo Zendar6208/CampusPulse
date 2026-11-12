@@ -467,4 +467,30 @@ class TestAddEvent(unittest.TestCase):
         self.assertEqual(events[0].name, "Campus Hackathon")
         mock_save.assert_not_called()
 
+    def test_main_filters_events_by_category(self):
+        events = [
+            Event("Campus Hackathon", "Technology", "25-10-2026", "VIT-AP", 100, 0),
+            Event("Art Exhibition", "Arts", "15-11-2026", "VIT-AP", 50, 0),
+            Event("Coding Bootcamp", "Technology", "05-12-2026", "VIT-AP", 80, 0)
+        ]
+
+        with patch("main.load_events", return_value=events), \
+            patch("builtins.input", side_effect=["9", "Technology", "10"]), \
+            patch("main.save_events") as mock_save, \
+            patch("builtins.print") as mock_print:
+
+            main()
+
+        printed_output = "\n".join(
+            str(arg)
+            for call in mock_print.call_args_list
+            for arg in call.args
+        )
+
+        self.assertIn("Campus Hackathon", printed_output)
+        self.assertIn("Coding Bootcamp", printed_output)
+        self.assertNotIn("Art Exhibition", printed_output)
+        # Filtering events should not trigger a save operation
+        mock_save.assert_not_called()
+
     
