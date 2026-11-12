@@ -394,3 +394,15 @@ class TestEventService(unittest.TestCase):
         filtered_events = filter_events_by_category(events, "Sports")
 
         self.assertEqual(filtered_events, [])
+    def test_filter_events_by_category_does_not_modify_original_list(self):
+        events = []
+
+        create_event(events, "Campus Hackathon", "Technology", "04-01-2023", "Location 4", 250)
+        create_event(events, "Music Night", "Entertainment", "05-01-2023", "Location 5", 150)
+        create_event(events, "Coding Bootcamp", "Technology", "06-01-2023", "Location 6", 200)
+
+        original_events_copy = events.copy()
+
+        filtered_events = filter_events_by_category(events, "Technology")
+        self.assertEqual(len(filtered_events), 2)
+        self.assertEqual(events, original_events_copy)
