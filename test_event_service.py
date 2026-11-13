@@ -430,4 +430,19 @@ class TestEventService(unittest.TestCase):
             [event.name for event in sorted_events],
             ["Music Night", "Campus Hackathon", "Coding Bootcamp"],
         )
+
+    def test_sort_events_already_sorted(self):
+        events = []
+
+        create_event(events, "Music Night", "Entertainment", "02-01-2023", "Location 5", 150)
+        create_event(events, "Campus Hackathon", "Technology", "04-01-2023", "Location 4", 250)
+        create_event(events, "Coding Bootcamp", "Technology", "06-01-2023", "Location 6", 200)
+
+        sorted_events = sort_events_by_date(events)
+
+        self.assertEqual(
+            [event.name for event in sorted_events],
+            ["Music Night", "Campus Hackathon", "Coding Bootcamp"],
+        )
+    
         
