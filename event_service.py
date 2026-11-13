@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from event import Event
 import event
 
@@ -134,5 +136,9 @@ def sort_events_by_date(events, reverse=False):
     if not isinstance(events, list):
         raise TypeError("events must be a list")
 
-    sorted_events = sorted(events, key=lambda ev: ev.date)
+    sorted_events = sorted(
+        events,
+        key=lambda ev: datetime.strptime(ev.date, "%d-%m-%Y"),
+        reverse=reverse,
+    )
     return sorted_events
