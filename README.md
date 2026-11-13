@@ -1,8 +1,8 @@
 # CampusPulse
 
-**Discover opportunities beyond your campus.**
+### Discover opportunities beyond your campus.
 
-CampusPulse is an open-source project designed to help college students discover hackathons, competitions, workshops, fests, conferences, and other college events in one place.
+CampusPulse is an open-source project designed to help college students discover hackathons, competitions, workshops, fests, conferences, and other campus opportunities in one place.
 
 The long-term vision is to build a trusted campus event network where students can discover opportunities across colleges, while verified student organizations and organizers can publish and manage their events.
 
@@ -12,103 +12,120 @@ The long-term vision is to build a trusted campus event network where students c
 
 ## Why CampusPulse?
 
-College events and opportunities are often scattered across Instagram, WhatsApp groups, Telegram channels, college websites, and individual registration platforms.
+College events and opportunities are scattered across Instagram, WhatsApp groups, Telegram channels, college websites, and individual registration platforms.
 
-This makes discovering relevant opportunities unnecessarily difficult, especially for students interested in participating in events outside their own institutions.
+This makes discovering relevant opportunities unnecessarily difficult, particularly for students interested in participating in events outside their own institutions.
 
-CampusPulse aims to solve this by building a centralized, accessible platform for campus opportunities.
+CampusPulse aims to address this fragmentation by building a centralized platform for campus opportunities.
 
 ## Current Goal
 
 The immediate objective is to build a functional, reliable, and maintainable foundation for CampusPulse.
 
-Development is incremental, with each stage introducing new software engineering concepts while improving the existing application.
+Development is incremental, with an emphasis on modular architecture, input validation, persistent storage, automated testing, and clean separation of responsibilities.
 
 The focus is on building working software rather than accumulating disconnected features.
 
-## Current Features
+---
 
-The current Python-based prototype supports:
+## Features
+
+The current Python CLI prototype supports the following functionality.
 
 ### Event Management
-
-* Display available events.
-* Search events by name.
-* Case-insensitive event searching.
-* Add new events.
-* View event information.
-* Manage event capacity and registration counts.
+- Display all available events.
+- Search events by name.
+- Case-insensitive event searching.
+- Create new events.
+- Update event locations.
+- Update event capacities.
+- Delete events safely.
+- Filter events by category.
+- Sort events chronologically by date.
 
 ### Registration Management
-
-* Register participants for events.
-* Cancel existing registrations.
-* Detect full events.
-* Prevent registrations beyond event capacity.
-* Prevent registration counts from becoming negative.
-* Persist registration changes.
+- Register participants for events.
+- Cancel existing registrations.
+- Detect events that have reached capacity.
+- Prevent registrations beyond event capacity.
+- Prevent registration counts from becoming negative.
+- Preserve registration data during event updates.
+- Persist successful registration changes.
 
 ### Data Persistence
-
-* Store events using JSON.
-* Automatically load events at startup.
-* Save event changes to persistent storage.
-* Convert event objects into dictionaries.
-* Reconstruct event objects from JSON data.
+- Store event data using JSON.
+- Automatically load events at application startup.
+- Save successful event modifications.
+- Serialize event objects into dictionaries.
+- Reconstruct event objects from stored JSON data.
+- Handle missing and malformed JSON files.
+- Validate the structure of loaded JSON data.
+- Skip invalid individual event records while preserving valid ones.
 
 ### Validation and Reliability
-
-* Validate event data types and values.
-* Validate event capacity and registration counts.
-* Handle missing `events.json` files.
-* Handle malformed JSON data.
-* Validate the structure of loaded JSON.
-* Skip invalid individual event records.
-* Preserve valid records when other records are invalid.
-* Continue application execution after recoverable loading errors.
+- Validate event data types and values.
+- Prevent negative event capacities.
+- Prevent registrations from exceeding event capacity.
+- Prevent duplicate event names.
+- Support case-insensitive duplicate detection.
+- Normalize event names and locations.
+- Reject invalid event operations.
+- Handle recoverable persistence errors.
 
 ### Automated Testing
+- Unit testing with Python's built-in `unittest` framework.
+- Service-layer testing.
+- CLI testing using mocked input and persistence.
+- Registration and cancellation tests.
+- Event creation and deletion tests.
+- Capacity validation tests.
+- Category filtering tests.
+- Chronological sorting tests.
+- JSON persistence and error-handling tests.
+- Original-data preservation tests.
 
-* Unit tests using Python's built-in `unittest` framework.
-* Registration and cancellation tests.
-* Event capacity detection tests.
-* Constructor validation tests.
-* Nine automated test cases implemented.
+**Current test suite:** 91 tests, with additional tests introduced as development progresses.
+
+---
 
 ## Event Data Model
 
-Each event currently contains:
+Each event currently contains six attributes:
 
-| Attribute  | Description                     |
-| ---------- | ------------------------------- |
-| Name       | Name of the event               |
-| Category   | Type of event                   |
-| Date       | Event date                      |
-| Location   | Event venue                     |
-| Capacity   | Maximum number of registrations |
-| Registered | Current registration count      |
+| Attribute | Description |
+|---|---|
+| `name` | Name of the event |
+| `category` | Type or category of the event |
+| `date` | Event date (`DD-MM-YYYY`) |
+| `location` | Event venue |
+| `capacity` | Maximum number of registrations |
+| `registered` | Current registration count |
 
 Events are represented internally using an object-oriented `Event` class.
 
-## Technology
+---
 
-The current prototype uses:
+## Technology Stack
 
-* Python 3
-* JSON for persistent storage
-* Object-Oriented Programming
-* Python exception handling
-* Python `unittest` for automated testing
-* Git and GitHub for version control
+| Technology | Purpose |
+|---|---|
+| Python 3 | Core application |
+| JSON | Persistent data storage |
+| `unittest` | Automated testing |
+| `unittest.mock` | Mocking user input and dependencies |
+| Git | Version control |
+| GitHub | Source code hosting and collaboration |
 
 No external Python dependencies are currently required.
+
+---
 
 ## Getting Started
 
 ### Requirements
 
-* Python 3.x
-* Git (for cloning the repository)
+- Python 3.x
+- Git (for cloning the repository)
 
 ### Installation
 
@@ -118,19 +135,25 @@ Clone the repository:
 git clone https://github.com/Zendar6208/CampusPulse.git
 ```
 
-Navigate into the project:
+Navigate to the project directory:
 
 ```bash
 cd CampusPulse
 ```
 
-Run the application:
+### Run the Application
 
 ```bash
 python main.py
 ```
 
-### Available Menu
+The application uses `events.json` for persistent event storage.
+
+---
+
+## Available CLI Operations
+
+The current application provides the following menu:
 
 ```text
 Hackathon Event Management System
@@ -140,10 +163,16 @@ Hackathon Event Management System
 3. Add Event
 4. Register for Event
 5. Cancel Registration
-6. Exit
+6. Update Event Location
+7. Update Event Capacity
+8. Delete Event
+9. Filter Events by Category
+10. Exit
 ```
 
-The application uses `events.json` for persistent event storage.
+The event-management functionality is implemented through reusable service functions, keeping application logic separate from terminal interactions.
+
+---
 
 ## Project Structure
 
@@ -151,410 +180,202 @@ The application uses `events.json` for persistent event storage.
 CampusPulse/
 │
 ├── main.py
+├── event.py
+├── storage.py
+├── event_service.py
+│
 ├── test_event.py
+├── test_event_service.py
+├── test_main.py
+│
 ├── events.json
 ├── README.md
 ├── LICENSE
 └── .gitignore
 ```
 
-The structure will evolve as the project grows.
+### Module Responsibilities
+
+| File | Responsibility |
+|---|---|
+| `main.py` | CLI interface and application flow |
+| `event.py` | Event class, attributes, and event-level operations |
+| `storage.py` | JSON loading and saving |
+| `event_service.py` | Reusable event-management operations |
+| `test_event.py` | Tests for the Event class and persistence |
+| `test_event_service.py` | Tests for event-management services |
+| `test_main.py` | CLI and application-flow tests |
+| `events.json` | Persistent event data |
+
+---
 
 ## Running Tests
 
 CampusPulse uses Python's built-in `unittest` framework.
 
-Run the automated tests using:
+Run the complete test suite:
+
+```bash
+python -m unittest discover -v
+```
+
+Run individual test modules:
 
 ```bash
 python -m unittest test_event -v
+python -m unittest test_event_service -v
+python -m unittest test_main -v
 ```
 
-The test suite currently contains nine tests covering registration, cancellation, capacity detection, and input validation.
+Tests use temporary files and mocking where appropriate to avoid unintended modifications to actual application data.
+
+---
+
+## Architecture
+
+CampusPulse follows a modular architecture that separates different application responsibilities.
+
+```text
+             User
+              |
+              v
+         main.py
+        (CLI Layer)
+              |
+              v
+      event_service.py
+       (Service Layer)
+              |
+        +-----+-----+
+        |           |
+        v           v
+     event.py    storage.py
+   (Event Model) (Persistence)
+        |           |
+        +-----+-----+
+              |
+              v
+          events.json
+```
+
+The architecture aims to keep business logic independent of the user interface and persistence implementation.
+
+This makes it easier to test individual components and eventually introduce additional interfaces without duplicating core functionality.
+
+---
 
 ## Development Status
 
 ### Implemented
 
-* [x] Basic event management
-* [x] Event display and searching
-* [x] Case-insensitive event search
-* [x] Event creation
-* [x] JSON-based persistent storage
-* [x] Object-oriented event representation
-* [x] Event serialization and deserialization
-* [x] Input and state validation
-* [x] Event registration
-* [x] Registration cancellation
-* [x] Capacity validation
-* [x] Reusable event lookup
-* [x] Registration persistence
-* [x] Missing-file handling
-* [x] Malformed JSON handling
-* [x] Individual invalid-record handling
-* [x] Preservation of valid events during loading failures
-* [x] Manual edge-case and failure testing
-* [x] Automated unit testing
-* [x] Constructor validation tests
+- [x] Basic event management.
+- [x] Event display and searching.
+- [x] Case-insensitive event lookup.
+- [x] Event creation.
+- [x] Duplicate event prevention.
+- [x] JSON-based persistent storage.
+- [x] Object-oriented event representation.
+- [x] Event serialization and deserialization.
+- [x] Input and state validation.
+- [x] Event registration.
+- [x] Registration cancellation.
+- [x] Registration persistence.
+- [x] Missing-file handling.
+- [x] Malformed JSON handling.
+- [x] Invalid JSON structure handling.
+- [x] Individual invalid-record handling.
+- [x] Modular application architecture.
+- [x] Reusable event-management services.
+- [x] Event location editing.
+- [x] Event capacity editing.
+- [x] Safe event deletion.
+- [x] Category filtering.
+- [x] Chronological event sorting.
+- [x] Automated unit testing.
+- [x] CLI testing with mocking.
 
 ### Next Development Priorities
 
-* [ ] Automated testing for JSON persistence
-* [ ] Improved project organization
-* [ ] Further separation of application logic and CLI interactions
-* [ ] Additional event-management capabilities
-* [ ] Improved documentation
-
-## Project Vision
-
-The planned full platform includes:
-
-* Student accounts.
-* College email verification.
-* College profiles.
-* Verified student organizations.
-* Organizer accounts.
-* Event creation and management.
-* Event registration.
-* Advanced event search and filtering.
-* Cross-college event discovery.
-* Personalized event recommendations.
-* Open-source community contributions.
-
-**These are planned capabilities and are not part of the current CLI prototype.**
+- [ ] Improve date validation and handling.
+- [ ] Introduce additional event-management capabilities.
+- [ ] Improve project organization as complexity increases.
+- [ ] Expand automated test coverage.
+- [ ] Introduce a more accessible user interface.
+- [ ] Explore backend and database integration.
 
 ---
 
-# Development Log
-
-### Day 1 — Initial Prototype
-
-* Created the initial Python-based event management system.
-* Implemented event display, searching, and creation.
-* Added basic input validation.
-* Introduced case-insensitive searching.
-
-### Day 2 — Persistent Event Storage
-
-* Introduced JSON-based event storage.
-* Implemented `load_events()` and `save_events()`.
-* Connected event creation to persistent storage.
-* Verified that events remain available after restarting the application.
-
-### Day 3 — Error Handling & Data Validation
-
-* Added missing-file handling using `FileNotFoundError`.
-* Added malformed JSON handling using `json.JSONDecodeError`.
-* Validated the structure of stored event data.
-* Improved application reliability.
-
-### Day 4 — Introduction to OOP
-
-* Introduced the `Event` class.
-* Learned classes, objects, `self`, and `__init__()`.
-* Added instance attributes and methods.
-* Began transitioning from dictionary-based event representation to objects.
-
-### Day 5 — OOP Integration & Event Behavior
-
-* Integrated `Event` objects into the application.
-* Implemented `to_dict()` and `from_dict()`.
-* Refactored event display and searching.
-* Added registration functionality.
-* Introduced `is_full()` for capacity checking.
-* Implemented reusable event lookup through `find_event_by_name()`.
-* Connected registration changes to JSON persistence.
-
-### Day 6 — Validation, State Management & Robustness
-
-* Added event data type and value validation.
-* Prevented invalid capacity and registration counts.
-* Used specific exceptions for invalid data.
-* Implemented `cancel_registration()`.
-* Added registration cancellation to the CLI.
-* Improved separation between event behavior and user interaction.
-* Tested registration and cancellation persistence.
-
-### Day 7 — Exception Handling & Failure Testing
-
-* Strengthened exception handling during event loading.
-* Tested missing and malformed JSON files.
-* Improved handling of invalid stored event data.
-* Verified application behavior under failure conditions.
-
-### Day 8 — Reliable Event Loading & Edge-Case Testing
-
-**Objective:** Prevent one invalid event record from interrupting the entire event-loading process.
-
-* Reviewed registration and cancellation logic.
-* Verified capacity checking using `registered >= capacity`.
-* Tested registration boundary conditions.
-* Identified an issue where one invalid event could interrupt loading and discard valid records.
-* Refactored `load_events()` to handle individual event conversion errors inside the loading loop.
-* Added validation to ensure the JSON root contains a list.
-* Preserved successfully loaded events when another record was invalid.
-* Tested an invalid event containing 501 registrations against a capacity of 100.
-* Confirmed that the invalid record was skipped while 10 valid events loaded successfully.
-* Verified that CampusPulse continued running normally after encountering invalid data.
-
-### Day 9 — Introduction to Automated Unit Testing
-
-* Introduced Python's built-in `unittest` framework.
-* Created `test_event.py` to test the `Event` class independently.
-* Used `setUp()` to initialize fresh test objects.
-* Implemented six automated tests covering:
-
-  * Successful event registration.
-  * Registration rejection when an event is full.
-  * Successful registration cancellation.
-  * Cancellation rejection when no participants are registered.
-  * Full-event detection.
-  * Detection of events with available capacity.
-* Used `assertTrue()`, `assertFalse()`, and `assertEqual()` to verify expected behavior.
-* Successfully executed all six tests.
-
-### Day 10 — Testing Input Validation
-
-Expanded the automated test suite to verify that CampusPulse correctly rejects invalid event data.
-
-**What I implemented:**
-
-* Learned to use `assertRaises()` from Python's `unittest` framework.
-* Added three constructor validation tests:
-
-  * Reject negative event capacity.
-  * Reject registration counts exceeding event capacity.
-  * Reject negative registration counts.
-* Tested invalid inputs during object creation rather than modifying existing objects.
-* Expanded the test suite from six to nine tests.
-
-**Key learning:** Testing isn't only about confirming that valid operations succeed. It's equally important to verify that invalid operations fail in the expected way.
-
-### Day 11 — Automated Persistence Testing
-
-**Objective:** Expand automated testing beyond individual `Event` methods to verify JSON persistence and failure handling.
-
-**What I implemented:**
-
-* Added automated tests for event serialization using `to_dict()`.
-* Added deserialization tests using `Event.from_dict()`.
-* Refactored `save_events()` and `load_events()` to accept optional file paths while preserving `events.json` as the default.
-* Used `tempfile.TemporaryDirectory()` to test file operations without modifying actual application data.
-* Implemented round-trip persistence testing with multiple events.
-* Tested loading behaviour when a JSON file is missing or malformed.
-* Tested preservation of valid events when an invalid record appears between them.
-* Identified and fixed an unhandled `KeyError` caused by missing required event fields.
-* Added a test verifying that invalid JSON root structures are rejected.
-* Expanded the automated test suite toward 16 test cases.
-
-**Key learning:** Automated tests should verify not only successful operations but also how software behaves when files are missing, data is corrupted, or individual records are invalid.
-
-### Day 12 — Modular Architecture & Search Testing
-
-**Objective:** Improve project maintainability by separating responsibilities into independent Python modules.
-
-**What I implemented:**
-
-* Extracted the `Event` class into `event.py`.
-* Moved JSON persistence functions into `storage.py`.
-* Extracted reusable event lookup logic into `event_service.py`.
-* Refactored `main.py` to focus on CLI interactions and application flow.
-* Updated test imports to reference their respective modules directly.
-* Introduced `test_event_service.py` for testing event lookup independently.
-* Added automated tests covering:
-
-  * Successful event lookup.
-  * Missing events.
-  * Case-insensitive searching.
-  * Empty search strings.
-  * Whitespace-only search strings.
-* Expanded the automated test suite to 21 tests.
-
-**Key learning:** Separating responsibilities makes code easier to understand, maintain, test and reuse. Application logic should remain independent of the interface through which users interact with it.
-
-### Day 13 — Reusable Event Creation & Automated Testing
-
-**Objective:** Separate event creation logic from CLI interactions to improve modularity and prepare CampusPulse for future interfaces.
-
-**Implemented:**
-
-* Introduced `create_event()` in `event_service.py`.
-* Separated event creation from terminal input handling.
-* Refactored `add_event()` to use the event creation service.
-* Preserved existing event validation through the `Event` constructor.
-* Ensured invalid events are rejected before modifying the event collection.
-* Added automated tests for successful event creation, negative capacity, invalid event collection types, and invalid input types.
-* Expanded the automated test suite to 25 tests.
-
-**Key Learning:**
-
-Separating application logic from user-interface code allows the same functionality to be reused across different interfaces without duplicating implementation.
-
-### Day 14 — Registration & Cancellation Service Refactoring
-
-**Objective:** Separate registration management from CLI interactions and improve the testability of event operations.
-
-**What I implemented:**
-
-* Introduced `register_for_event()` in `event_service.py`.
-* Introduced `cancel_event_registration()` as a reusable service function.
-* Reused `find_event_by_name()` for locating events.
-* Delegated registration and cancellation rules to the existing `Event` class methods.
-* Added input type validation to both service functions.
-* Refactored the CLI to use the registration and cancellation services.
-* Fixed an issue where cancellation could execute twice for a single request.
-* Ensured event data is saved only after successful registration or cancellation.
-* Added automated tests covering:
-
-  * Successful registration and cancellation.
-  * Nonexistent events.
-  * Full-capacity registration attempts.
-  * Cancellation attempts with zero registrations.
-  * Invalid event collection types.
-  * Invalid event name types.
-* Expanded the automated test suite from 25 to 35 tests.
-
-**Key Learning:**
-
-Separating business logic from user-interface code prevents duplicated operations and makes application behaviour easier to test. Reusing existing class methods also ensures that registration rules remain consistent throughout the application.
-
-### Day 15 — Improving Event Creation and Persistence
-
-**Objective:** Ensure event data is saved only after successful event creation and introduce automated testing for CLI input handling.
-
-**What I implemented:**
-
-* Updated `add_event()` to return `True` after successful creation and `False` when input validation fails.
-* Modified the CLI to call `save_events()` only when `add_event()` succeeds.
-* Introduced `test_main.py` to test CLI functions independently.
-* Used `unittest.mock.patch` to simulate user input without manual interaction.
-* Added five tests covering:
-
-  * Successful event creation.
-  * Empty event names.
-  * Non-integer capacity.
-  * Negative capacity.
-  * Invalid events collection type.
-* Expanded the automated test suite to 36 tests.
-
-**Key Learning:**
-
-Functions can communicate operation outcomes through return values. Separating successful and unsuccessful execution paths helps prevent unnecessary file operations and makes CLI behaviour easier to verify through automated tests.
-### Day 16 — Testing CLI Persistence with Mocking
-
-**Objective:** Verify that CampusPulse saves event data only after successful operations.
-
-**What I implemented:**
-
-* Introduced CLI-level persistence tests using `unittest.mock.patch`.
-* Mocked `load_events()` to provide controlled test data.
-* Mocked `input()` to simulate complete CLI interactions.
-* Mocked `save_events()` to verify persistence without modifying `events.json`.
-* Added tests covering:
-
-  * Successful event creation triggers saving exactly once.
-  * Invalid event creation does not trigger saving.
-  * Successful registration triggers saving exactly once.
-  * Failed registration does not trigger saving.
-  * Successful cancellation triggers saving exactly once.
-  * Failed cancellation does not trigger saving.
-* Added assertions to verify that registration counts change by exactly one.
-* Expanded the automated test suite to 42 tests.
-
-**Key Learning:**
-
-Mocking allows us to test how different parts of an application interact without depending on actual keyboard input or file operations. Testing both successful and failed operations helps prevent unnecessary persistence and catches bugs that isolated function tests might miss.
-
-### Day 17 — Duplicate Event Prevention
-
-* Implemented duplicate event-name detection in the service layer.
-* Used case-insensitive matching to prevent duplicates with different capitalization.
-* Normalized event names by removing leading and trailing whitespace.
-* Added unit tests for exact duplicates, case-insensitive duplicates, and whitespace-based duplicates.
-* Verified that newly created event names are stored without surrounding whitespace.
-* Added a mocked CLI test ensuring duplicate event attempts do not trigger `save_events()`.
-
-**Key learning:** Input normalization, data integrity, and testing persistence behaviour across application layers.
-
-### Day 18 — Event Location Editing
-
-* Implemented `update_event()` in the service layer to modify an existing event's location.
-* Added input validation to reject invalid types and empty or whitespace-only locations.
-* Normalized location input using `.strip()`.
-* Preserved existing event registrations when updating the location.
-* Integrated event editing into the CLI through menu option 7.
-* Ensured that changes are saved only after a successful update.
-* Added service-layer and mocked CLI tests covering successful updates, missing events, invalid inputs, and persistence behaviour.
-
-**Key learning:** Updating existing objects safely, separating business logic from CLI interaction, and preventing unsuccessful operations from triggering persistence.
-
-### Day 19 — Event Capacity Editing
-
-* Implemented `update_event_capacity()` in the service layer.
-* Added validation for invalid types, negative capacities, and capacities below existing registrations.
-* Prevented Boolean values from being accepted as integers.
-* Preserved existing registrations during capacity updates.
-* Added unit tests covering successful updates, boundary conditions, invalid inputs, and missing events.
-* Integrated capacity editing into the CLI through menu option 8.
-* Ensured that `save_events()` runs only after a successful update.
-* Added mocked CLI tests covering successful persistence, rejected capacity reductions, and nonnumeric input.
-
-**Key learning:** Enforcing business rules before modifying data, testing boundary conditions, and maintaining data integrity across the service and CLI layers.
-
-### Day 20 — Safe Event Deletion
-
-* Implemented `delete_event()` in the service layer.
-* Added safeguards preventing deletion of events with active registrations.
-* Added input validation and graceful handling of nonexistent events.
-* Wrote unit tests covering successful deletion, active registrations, missing events, and invalid argument types.
-* Integrated event deletion into the CLI.
-* Reorganised the menu to group editing and deletion operations together.
-* Updated existing CLI tests to reflect the new menu numbering.
-* Ensured that event deletion triggers persistence only when successful.
-
-### Day 21 — Category Filtering
-
-- Implemented `filter_events_by_category()` in `event_service.py`.
-- Added case-insensitive category matching.
-- Added whitespace handling for category searches.
-- Added validation for invalid input types.
-- Ensured filtering does not modify the original events list.
-- Integrated category filtering into the CLI as **Option 9**.
-- Added unit tests covering successful filtering, case-insensitive matching, whitespace handling, empty results, invalid inputs, and original-list preservation.
-- Added CLI tests to verify that only matching events are displayed.
-
-
-**Key learning:** Safely removing data, enforcing business rules, and maintaining test compatibility when changing an application's interface.
+## Project Vision
+
+The long-term goal is to evolve CampusPulse into a cross-college event discovery and management platform.
+
+Planned capabilities include:
+
+### For Students
+- Student accounts.
+- College email verification.
+- College profiles.
+- Cross-college event discovery.
+- Advanced event search and filtering.
+- Event registration.
+- Personalized event recommendations.
+
+### For Organizers
+- Verified student organization accounts.
+- Organizer profiles.
+- Event creation and management.
+- Registration management.
+- Event visibility and discovery controls.
+
+### Platform Development
+- Web-based interface.
+- Backend API.
+- Database integration.
+- Authentication and authorization.
+- Scalable event discovery infrastructure.
+- Open-source community contributions.
+
+> **Note:** These are long-term plans and are not part of the current Python CLI prototype.
 
 ---
 
 ## Contributing
 
-CampusPulse is intended to become an open-source project.
+CampusPulse is intended to become an open-source community-driven project.
 
-Development is currently focused on building and testing the core application. Formal contribution guidelines will be introduced as the project matures.
+Development is currently focused on establishing a reliable core application. Contribution guidelines and additional project documentation will evolve as the project matures.
 
-Ideas, bug reports, suggestions, and pull requests are welcome.
+Bug reports, feature suggestions, improvements, and pull requests are welcome.
+
+---
 
 ## Development Philosophy
 
-CampusPulse is being built incrementally, alongside the developer's software engineering journey.
+CampusPulse is being developed incrementally, with an emphasis on learning and applying sound software engineering principles.
 
-The principles guiding development are:
+The guiding principles are:
 
-* Understand the code being written.
-* Prioritize functionality over unnecessary complexity.
-* Introduce technologies when they solve actual problems.
-* Test existing behavior before adding new features.
-* Learn from bugs rather than simply suppressing errors.
-* Build toward a maintainable and genuinely usable product.
+- Understand the code being written.
+- Prioritize functionality over unnecessary complexity.
+- Introduce technologies when they solve actual problems.
+- Test existing behavior before introducing changes.
+- Maintain data integrity.
+- Separate application responsibilities.
+- Learn from bugs rather than simply suppressing errors.
+- Build toward a maintainable and genuinely useful product.
+
+---
 
 ## License
 
-This project is licensed under the MIT License. See `LICENSE` for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
 
 ## Maintainer
 
 **Darsh Agarwal**
 
-CampusPulse — An open-source project built to make discovering college opportunities easier.
+GitHub: [@Zendar6208](https://github.com/Zendar6208)
+
+CampusPulse — Making campus opportunities easier to discover.
