@@ -1,6 +1,6 @@
 import unittest
 from event import Event
-from event_service import filter_events_by_category, find_event_by_name, create_event, register_for_event, cancel_event_registration, update_event, update_event_capacity,delete_event
+from event_service import filter_events_by_category, find_event_by_name, create_event, register_for_event, cancel_event_registration, update_event, update_event_capacity, delete_event, sort_events_by_date
 
 class TestEventService(unittest.TestCase):
     def setUp(self):
@@ -416,4 +416,18 @@ class TestEventService(unittest.TestCase):
         create_event(events, "Campus Hackathon", "Technology", "04-01-2023", "Location 4", 250)
         with self.assertRaises(TypeError):
             filter_events_by_category(events, 123)
+
+    def test_sort_events_by_date(self):
+        events = []
+
+        create_event(events, "Campus Hackathon", "Technology", "04-01-2023", "Location 4", 250)
+        create_event(events, "Music Night", "Entertainment", "02-01-2023", "Location 5", 150)
+        create_event(events, "Coding Bootcamp", "Technology", "06-01-2023", "Location 6", 200)
+
+        sorted_events = sort_events_by_date(events)
+
+        self.assertEqual(
+            [event.name for event in sorted_events],
+            ["Music Night", "Campus Hackathon", "Coding Bootcamp"],
+        )
         

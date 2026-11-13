@@ -130,3 +130,9 @@ def filter_events_by_category(events, category):
     filtered_events = [ev for ev in events if ev.category.casefold() == category.casefold()]
     return filtered_events
 
+def sort_events_by_date(events):
+    if not isinstance(events, list):
+        raise TypeError("events must be a list")
+
+    sorted_events = sorted(events, key=lambda ev: ev.date)
+    return sorted_events
