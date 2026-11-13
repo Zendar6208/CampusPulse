@@ -457,4 +457,32 @@ class TestEventService(unittest.TestCase):
             [event.name for event in sorted_events],
             ["Music Night", "Campus Hackathon", "Coding Bootcamp"],
         )
+    def test_sort_events_empty_list(self):
+        events = []
+
+        sorted_events = sort_events_by_date(events)
+
+        self.assertEqual(sorted_events, [])
+
+    def test_sort_events_invalid_events_type(self):
+        with self.assertRaises(TypeError):
+            sort_events_by_date("not a list")
+
+    def test_sort_events_does_not_modify_original_list(self):
+        events = []
+        event1 = create_event(events, "Hackathon", "Technology", "2026-11-20", "Block A", 100)
+        event2 = create_event(events, "Workshop", "Education", "2026-11-10", "Block B", 50)
+
+        events = [event1, event2]
+        original_events = events.copy()
+
+        sorted_events = sort_events_by_date(events)
+
+        self.assertEqual(events, original_events)
+        self.assertEqual(sorted_events, [event2, event1])
+
+
+    def test_sort_events_invalid_input_type(self):
+        with self.assertRaises(TypeError):
+            sort_events_by_date("not a list")
         

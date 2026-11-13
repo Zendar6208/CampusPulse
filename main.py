@@ -193,7 +193,16 @@ def main():
         
         elif choice == '9':
             category = input("Enter category to filter by: ").strip()
-            filtered_events = event_service.filter_events_by_category(events, category)
+            if not category:
+                print("Category cannot be empty.")
+                continue
+
+            try:
+                filtered_events = event_service.filter_events_by_category(events, category)
+            except (TypeError, ValueError) as error:
+                print(f"Unable to filter events: {error}")
+                continue
+
             if filtered_events:
                 print(f"Events in category '{category}':")
                 for event in filtered_events:
