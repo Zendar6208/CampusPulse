@@ -1,3 +1,6 @@
+import datetime
+
+
 class Event:
     def __init__(self, name, category, date, location, capacity, registered):
         if type(name) is not str:
@@ -28,8 +31,12 @@ class Event:
         if not category.strip():
             raise ValueError("Event category cannot be empty.")
 
-        if not date.strip():
-            raise ValueError("Event date cannot be empty.")
+        try:
+            datetime.datetime.strptime(date, "%d-%m-%Y")
+        except ValueError:
+            raise ValueError(
+                "Date must be a valid date in DD-MM-YYYY format."
+            ) from None
 
         if not location.strip():
             raise ValueError("Event location cannot be empty.")
@@ -40,6 +47,7 @@ class Event:
         self.location = location
         self.capacity = capacity
         self.registered = registered
+
 
     def display(self):
         print(f"Name: {self.name}")
