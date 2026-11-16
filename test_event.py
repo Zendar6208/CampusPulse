@@ -4,6 +4,7 @@ import os
 import json
 
 from event import Event
+import event
 from storage import save_events, load_events
 
 class TestEvent(unittest.TestCase):
@@ -188,6 +189,72 @@ class TestEvent(unittest.TestCase):
 
             loaded_events = load_events(filename=temp_file)
             self.assertEqual(loaded_events, [])
-            
 
+  
 
+        def test_valid_date_format(self):
+            event = Event(
+                "Test Event",
+                "Hackathon",
+                "20-11-2026",
+                "VIT-AP",
+                100,
+                0
+            )
+            self.assertIsInstance(event, Event)
+            self.assertEqual(event.date, "20-11-2026")
+
+    def test_invalid_day_format(self):
+        with self.assertRaises(ValueError):
+            Event(
+                "Test Event",
+                "Hackathon",
+                "32-11-2026",
+                "VIT-AP",
+                100,
+                0
+            )
+
+    def test_invalid_month_format(self):
+        with self.assertRaises(ValueError):
+            Event(
+                "Test Event",
+                "Hackathon",
+                "20-13-2026",
+                "VIT-AP",
+                100,
+                0
+            )
+
+    def test_impossible_date(self):
+        with self.assertRaises(ValueError):
+            Event(
+                "Test Event",
+                "Hackathon",
+                "31-02-2026",
+                "VIT-AP",
+                100,
+                0
+            )
+
+    def test_invalid_date_format(self):
+        with self.assertRaises(ValueError):
+            Event(
+                "Test Event",
+                "Hackathon",
+                "2026-11-20",
+                "VIT-AP",
+                100,
+                0
+            )
+
+    def test_empty_date(self):
+        with self.assertRaises(ValueError):
+            Event(
+                "Test Event",
+                "Hackathon",
+                "",
+                "VIT-AP",
+                100,
+                0
+            )
