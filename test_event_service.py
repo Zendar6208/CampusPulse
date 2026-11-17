@@ -1,6 +1,6 @@
 import unittest
 from event import Event
-from event_service import filter_events_by_category, find_event_by_name, create_event, register_for_event, cancel_event_registration, update_event, update_event_capacity, delete_event, sort_events_by_date
+from event_service import filter_events_by_category, filter_events_by_date_range, find_event_by_name, create_event, register_for_event, cancel_event_registration, update_event, update_event_capacity, delete_event, sort_events_by_date
 
 class TestEventService(unittest.TestCase):
     def setUp(self):
@@ -498,3 +498,85 @@ class TestEventService(unittest.TestCase):
             [event.name for event in sorted_events],
             ["Event 3", "Event 2", "Event 1"],
         )
+
+    def test_filter_events_by_date_range(self):
+        events = []
+        create_event(events, "Event 1", "Category 1", "15-01-2026", "Location 1", 100)
+        create_event(events, "Event 2", "Category 2", "02-12-2025", "Location 2", 150)
+        create_event(events, "Event 3", "Category 3", "10-06-2025", "Location 3", 200)
+
+        filtered_events = filter_events_by_date_range(events, "01-01-2025", "31-12-2025")
+
+        self.assertEqual(
+            [event.name for event in filtered_events],
+            ["Event 2", "Event 3"],
+        )
+    def test_filter_events_by_date_range_includes_boundaries(self):
+        events = []
+        create_event(events, "Event 1", "Category 1", "15-01-2025", "Location 1", 100)
+        create_event(events, "Event 2", "Category 2", "02-12-2025", "Location 2", 150)
+        create_event(events, "Event 3", "Category 3", "10-06-2024", "Location 3", 200)
+
+        filtered_events = filter_events_by_date_range(events, "15-01-2025", "02-12-2025")
+
+        self.assertEqual(
+            [event.name for event in filtered_events],
+            ["Event 1", "Event 2"],
+        )
+
+    def test_filter_events_by_date_range_no_matches(self):
+        events = []
+        create_event(events, "Event 1", "Category 1", "15-01-2026", "Location 1", 100)
+        create_event(events, "Event 2", "Category 2", "02-12-2025", "Location 2", 150)
+        create_event(events, "Event 3", "Category 3", "10-06-2025", "Location 3", 200)
+
+        filtered_events = filter_events_by_date_range(events, "01-01-2027", "31-12-2027")
+
+        self.assertEqual(filtered_events, [])
+
+    def test_filter_events_by_date_range_does_not_modify_original_list(self):
+        events = []
+        create_event(events, "Event 1", "Category 1", "15-01-2026", "Location 1", 100)
+        create_event(events, "Event 2", "Category 2", "02-12-2025", "Location 2", 150)
+        create_event(events, "Event 3", "Category 3", "10-06-2025", "Location 3", 200)
+
+        original_events_copy = events.copy()
+
+        filtered_events = filter_events_by_date_range(events, "01-01-2025", "31-12-2025")
+        self.assertEqual(len(filtered_events), 2)
+        self.assertEqual(events, original_events_copy)
+
+    def test_filter_events_by_date_range_invalid_events_type(self):
+        with self.assertRaises(TypeError):
+            filter_events_by_date_range("not a list", "01-01-2025", "31-12-2025")
+
+    def test_filter_events_by_date_range_invalid_date_types(self):
+        events = []
+        create_event(events, "Event 1", "Category 1", "15-01-2026", "Location 1", 100)
+        create_event(events, "Event 2", "Category 2", "02-12-2025", "Location 2", 150)
+
+        with self.assertRaises(TypeError):
+            filter_events_by_date_range(events, 20250101, "31-12-2025")
+
+        with self.assertRaises(TypeError):
+            filter_events_by_date_range(events, "01-01-2025", 20251231)
+    def test_filter_events_by_date_range_invalid_date_format(self):
+        events = []
+        create_event(events, "Event 1", "Category 1", "15-01-2026", "Location 1", 100)
+        create_event(events, "Event 2", "Category 2", "02-12-2025", "Location 2", 150)
+
+        with self.assertRaises(ValueError):
+            filter_events_by_date_range(events, "2025-01-01", "31-12-2025")
+
+        with self.assertRaises(ValueError):
+            filter_events_by_date_range(events, "01-01-2025", "2025/12/31")
+
+    def test_filter_events_by_date_range_invalid_range(self):
+        events = []
+        create_event(events, "Event 1", "Category 1", "15-01-2026", "Location 1", 100)
+        create_event(events, "Event 2", "Category 2", "02-12-2025", "Location 2", 150)
+
+        with self.assertRaises(ValueError):
+            filter_events_by_date_range(events, "31-12-2025", "01-01-2025")
+    
+           

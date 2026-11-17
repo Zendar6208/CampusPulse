@@ -142,3 +142,24 @@ def sort_events_by_date(events, reverse=False):
         reverse=reverse,
     )
     return sorted_events
+
+def filter_events_by_date_range(events, start_date, end_date):
+    if not isinstance(events, list):
+        raise TypeError("events must be a list")
+    if not isinstance(start_date, str) or not isinstance(end_date, str):
+        raise TypeError("start_date and end_date must be strings")
+
+    try:
+        start_dt = datetime.strptime(start_date, "%d-%m-%Y")
+        end_dt = datetime.strptime(end_date, "%d-%m-%Y")
+    except ValueError:
+        raise ValueError("Dates must be in the format 'dd-mm-yyyy'")
+
+    if start_dt > end_dt:
+        raise ValueError("start_date cannot be after end_date")
+
+    filtered_events = [
+        ev for ev in events
+        if start_dt <= datetime.strptime(ev.date, "%d-%m-%Y") <= end_dt
+    ]
+    return filtered_events
