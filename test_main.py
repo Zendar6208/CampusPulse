@@ -503,7 +503,10 @@ class TestAddEvent(unittest.TestCase):
             Event("Coding Bootcamp", "Technology", "05-12-2026", "VIT-AP", 80, 0)
         ]
 
-        with patch("builtins.input", side_effect=["01-11-2026", "30-11-2026"]), \
+        start_date = "01-11-2026"
+        end_date = "30-11-2026"
+
+        with patch("builtins.input", side_effect=[start_date, end_date]), \
                 patch("builtins.print") as mock_print:
 
             filter_events_by_date_range(events)
@@ -517,6 +520,33 @@ class TestAddEvent(unittest.TestCase):
         self.assertIn("Art Exhibition", printed_output)
         self.assertNotIn("Campus Hackathon", printed_output)
         self.assertNotIn("Coding Bootcamp", printed_output)
+
+    def test_filter_events_by_date_range_handles_invalid_dates(self):
+        events = []
+        start_date = "invalid-date"
+        end_date = "30-11-2026"
+        with patch("builtins.input", side_effect=[start_date, end_date]), \
+                patch("builtins.print") as mock_print:
+            filter_events_by_date_range(events)
+
+            mock_print.assert_called_once()
+            self.assertIn("Unable to filter events", mock_print.call_args.args[0])
+
+    def test_filter_events_by_date_range_displays_message_when_no_events_match(self):
+        events = [
+            Event("Campus Hackathon", "Technology", "25-10-2026", "VIT-AP", 100, 0),
+            Event("Art Exhibition", "Arts", "05-12-2026", "VIT-AP", 50, 0)
+        ]
+        start_date = "01-11-2026"
+        end_date = "30-11-2026"
+
+        with patch("builtins.input", side_effect=[start_date, end_date]), \
+                patch("builtins.print") as mock_print:
+
+            filter_events_by_date_range(events)
+
+        mock_print.assert_called_once()
+        self.assertIn(f"No events found between {start_date} and {end_date}.", mock_print.call_args.args[0])
 
 if __name__ == "__main__":
     unittest.main()
