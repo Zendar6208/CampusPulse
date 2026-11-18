@@ -548,5 +548,21 @@ class TestAddEvent(unittest.TestCase):
         mock_print.assert_called_once()
         self.assertIn(f"No events found between {start_date} and {end_date}.", mock_print.call_args.args[0])
 
+    def test_main_calls_date_range_filtering(self):
+        events = [
+            Event("Campus Hackathon", "Technology", "25-10-2026", "VIT-AP", 100, 0),
+            Event("Art Exhibition", "Arts", "15-11-2026", "VIT-AP", 50, 0)
+        ]
+        
+
+        with patch("main.load_events", return_value=events), \
+                patch("main.filter_events_by_date_range") as mock_filter, \
+                patch("builtins.input", side_effect=["10","11"]), \
+                patch("builtins.print") as mock_print:
+
+            main()
+
+        mock_filter.assert_called_once_with(events)
+
 if __name__ == "__main__":
     unittest.main()

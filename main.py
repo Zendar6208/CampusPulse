@@ -114,9 +114,10 @@ def main():
         print("7. Update Event Capacity")
         print("8. Delete Event")
         print("9. Filter Events by Category")
-        print("10. Exit")
+        print("10. Filter Events by Date Range")
+        print("11. Exit")
 
-        choice = input("Enter your choice (1-10): ").strip()
+        choice = input("Enter your choice (1-11): ").strip()
 
         if choice == '1':
             display_events(events)
@@ -227,8 +228,11 @@ def main():
                     event.display()
             else:
                 print(f"No events found in category '{category}'.")
-
         elif choice == '10':
+            print("Filtered Events by Date Range")
+            filter_events_by_date_range(events)
+
+        elif choice == '11':
             print("Exiting the program.")
             break
 
