@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import patch
-from main import add_event, main
+from main import add_event,main
 from event import Event
-
+from main import filter_events_by_date_range
 
 class TestAddEvent(unittest.TestCase):
 
@@ -496,6 +496,27 @@ class TestAddEvent(unittest.TestCase):
         # Filtering events should not trigger a save operation
         mock_save.assert_not_called()
 
+    def test_filter_events_by_date_range_displays_matching_events(self):
+        events = [
+            Event("Campus Hackathon", "Technology", "25-10-2026", "VIT-AP", 100, 0),
+            Event("Art Exhibition", "Arts", "15-11-2026", "VIT-AP", 50, 0),
+            Event("Coding Bootcamp", "Technology", "05-12-2026", "VIT-AP", 80, 0)
+        ]
+
+        with patch("builtins.input", side_effect=["01-11-2026", "30-11-2026"]), \
+                patch("builtins.print") as mock_print:
+
+            filter_events_by_date_range(events)
+
+        printed_output = "\n".join(
+            str(arg)
+            for call in mock_print.call_args_list
+            for arg in call.args
+        )
+
+        self.assertIn("Art Exhibition", printed_output)
+        self.assertNotIn("Campus Hackathon", printed_output)
+        self.assertNotIn("Coding Bootcamp", printed_output)
 
 if __name__ == "__main__":
     unittest.main()

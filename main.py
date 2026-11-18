@@ -1,3 +1,5 @@
+from asyncio import events
+
 from storage import load_events, save_events
 from event import Event
 import event_service
@@ -80,7 +82,23 @@ def add_event(events):
 
     print(f"Event '{name}' added successfully!")
     return True
+def filter_events_by_date_range(events):
+    """Filter events by a specified date range."""
+    start_date = input("Enter start date (DD-MM-YYYY): ").strip()
+    end_date = input("Enter end date (DD-MM-YYYY): ").strip()
 
+    try:
+        filtered_events = event_service.filter_events_by_date_range(events, start_date, end_date)
+    except (ValueError, TypeError) as error:
+        print(f"Unable to filter events: {error}")
+        return
+
+    if filtered_events:
+        print(f"Events from {start_date} to {end_date}:")
+        for event in filtered_events:
+            event.display()
+    else:
+        print(f"No events found between {start_date} and {end_date}.")
 
 def main():
     events = load_events()
